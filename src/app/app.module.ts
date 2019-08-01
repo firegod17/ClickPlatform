@@ -15,9 +15,6 @@ import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { HomeComponent } from './home';
 import { LoginComponent } from './login';
 import { RegisterComponent } from './register';
-import { PassportComponent } from './passport';
-import { AddressComponent } from './address';
-import { SelfiphotoComponent } from './selfiphoto';
 import { StatisticsComponent } from './statistics';
 import { MyPasswordComponent } from './my-password';
 import { AuthService } from '@app/_services';
@@ -38,9 +35,6 @@ import { VerifyEmailComponent } from './verify-email';
         HomeComponent,
         LoginComponent,
         RegisterComponent,
-        PassportComponent,
-        AddressComponent,
-        SelfiphotoComponent,
         StatisticsComponent,
         MyPasswordComponent ,
         VerifyEmailComponent
