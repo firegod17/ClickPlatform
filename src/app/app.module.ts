@@ -18,8 +18,16 @@ import { RegisterComponent } from './register';
 import { StatisticsComponent } from './statistics';
 import { MyPasswordComponent } from './my-password';
 import { AuthService } from '@app/_services';
-import { VerifyEmailComponent } from './verify-email';
-
+import { VerifyEmailComponent } from './verify-email';;
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatStepperModule} from '@angular/material/stepper';
+import {
+  MatButtonModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatRippleModule
+} from '@angular/material';
 
 @NgModule({
     imports: [
@@ -28,7 +36,15 @@ import { VerifyEmailComponent } from './verify-email';
         HttpClientModule,
         routing,
         RouterModule,
+        BrowserAnimationsModule,
+        MatTabsModule,
+        MatStepperModule,
+        MatButtonModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatRippleModule,
     ],
+
     declarations: [
         AppComponent,
         AlertComponent,
