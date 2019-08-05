@@ -5,14 +5,14 @@
 
 
   <h1 class="text-center">Hi {{currentUser.firstName}}!</h1>
-
+<form [formGroup]="verificationForm"  action="/Verify" >
   <mat-tab-group mat-stretch-tabs  class="example-stretched-tabs mat-elevation-z4">
   <mat-tab label="Tax Information">
     <mat-vertical-stepper class="Vertical-form">
       <mat-step>
         <ng-template matStepLabel>Taxpayer Identification Number</ng-template>
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="ITIN" required>
+          <input formControlName="iTIN" matInput placeholder="ITIN" required>
         </mat-form-field>
         <div>
           <button mat-button matStepperNext>Next</button>
@@ -24,7 +24,7 @@
       <mat-step>
         <ng-template matStepLabel>Foreign Tax Identifying Number</ng-template>
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="FTIN" required>
+          <input formControlName="fTIN" matInput placeholder="FTIN" required>
         </mat-form-field>
         <div>
           <button mat-button matStepperPrevious>Back</button>
@@ -37,7 +37,7 @@
       <mat-step>
         <ng-template matStepLabel>Social Security Numberr</ng-template>
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="SSN" required>
+          <input formControlName="sSN" matInput placeholder="SSN" required>
         </mat-form-field>
         <div>
           <button mat-button matStepperPrevious>Back</button>
@@ -50,7 +50,7 @@
       <mat-step>
         <ng-template matStepLabel>Date of Birth</ng-template>
           <mat-form-field class="example-full-width">
-            <input matInput [matDatepicker]="picker" placeholder="Choose a date" required>
+            <input formControlName="dataOfBirth" matInput [matDatepicker]="picker" placeholder="Choose a date" required>
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
           </mat-form-field>
@@ -62,7 +62,7 @@
       <mat-step>
         <ng-template matStepLabel>Currently Staying in Country</ng-template>
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Country" required>
+          <input formControlName="country" matInput placeholder="Country" required>
         </mat-form-field>
         <div>
           <button mat-button matStepperPrevious>Back</button>
@@ -72,7 +72,7 @@
       <mat-step>
         <ng-template matStepLabel>Currently Staying in City</ng-template>
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="City" required>
+          <input  formControlName="city" matInput placeholder="City" required>
         </mat-form-field>
         <div>
           <button mat-button matStepperPrevious>Back</button>
@@ -87,7 +87,7 @@
       <mat-step>
         <ng-template matStepLabel>Family Monthly Income</ng-template>
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Amount" type="number" class="value-button">
+          <input formControlName="familyMonthlyIncome"  matInput placeholder="Amount" type="number" class="value-button">
           <span matPrefix>$&nbsp;</span>
           <span matSuffix>.00</span>
         </mat-form-field>
@@ -103,7 +103,7 @@
       <mat-step>
         <ng-template matStepLabel>Incoming From Investing (Monthly)</ng-template>
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Amount" type="number" class="value-button">
+          <input formControlName="incomingFromInvesting" matInput placeholder="Amount" type="number" class="value-button">
           <span matPrefix>$&nbsp;</span>
           <span matSuffix>.00</span>
         </mat-form-field>
@@ -115,7 +115,7 @@
       <mat-step>
         <ng-template matStepLabel>Other Income</ng-template>
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Amount" type="number" class="value-button">
+          <input formControlName="otherIncome"  matInput placeholder="Amount" type="number" class="value-button">
           <span matPrefix>$&nbsp;</span>
           <span matSuffix>.00</span>
         </mat-form-field>
@@ -127,7 +127,7 @@
       <mat-step>
         <ng-template matStepLabel>Term Loan</ng-template>
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Amount" type="number" class="value-button">
+          <input formControlName="termLoan" matInput placeholder="Amount" type="number" class="value-button">
           <span matPrefix>$&nbsp;</span>
           <span matSuffix>.00</span>
         </mat-form-field>
@@ -147,19 +147,20 @@
       <mat-step>
         <ng-template matStepLabel>Loan Amount Required</ng-template>
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Amount" type="number" class="value-button">
+          <input  formControlName="loanAmountRequired" matInput placeholder="Amount" type="number" class="value-button">
           <span matPrefix>$&nbsp;</span>
           <span matSuffix>.00</span>
         </mat-form-field>
         <div>
           <button mat-button id="Submit" tabindex="-1" type="button"
           color="warn" (click)='moveToSelectedTab("Incoming Amount")'>Back</button>
-          <button mat-button matStepperNext>Next</button>
+          <button mat-button  (click)="onSubmit()">Submit</button>
         </div>
       </mat-step>
     </mat-vertical-stepper>
     </mat-tab>
 </mat-tab-group>
+</form>
 
 <!-- <button type="button" routerLink="/statistics" class="btn btn-primary">Statistics</button> -->
 <!-- <h1>Hi {{currentUser.firstName}}!</h1>

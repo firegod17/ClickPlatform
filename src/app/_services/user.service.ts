@@ -20,13 +20,8 @@ export class UserService {
         return this.http.post(`${environment.apiUrl}/users/register`, user);
     }
 
-    address(user: User) {
-        return this.http.post(`${environment.apiUrl}/users/address`, user);
-        console.log(User);
-
-    }
-    passport(user: User) {
-        return this.http.post(`${environment.apiUrl}/users/passport`, user);
+    verify(user: User) {
+        return this.http.post(`${environment.apiUrl}/users/verify`, user);
         console.log(User);
 
     }
