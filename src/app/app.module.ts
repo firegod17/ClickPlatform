@@ -30,8 +30,9 @@ import {
   MatFormFieldModule,
   MatInputModule,
   MatRippleModule
-} from '@angular/material';;
-import { Info1Component } from './home/info1/info1.component'
+} from '@angular/material';
+import { Info1Component } from './home/info1/info1.component';
+import { IndoForAmountComponent } from './home/indo-for-amount/indo-for-amount.component'
 
 @NgModule({
     imports: [
@@ -63,10 +64,11 @@ import { Info1Component } from './home/info1/info1.component'
         StatisticsComponent,
         MyPasswordComponent ,
         VerifyEmailComponent,
-        Info1Component
-       ],
+        Info1Component,
+        IndoForAmountComponent,       ],
     entryComponents: [
         Info1Component,
+        IndoForAmountComponent,
        ],
     providers: [
         MatDatepickerModule,

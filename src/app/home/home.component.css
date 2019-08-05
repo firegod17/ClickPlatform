@@ -6,7 +6,7 @@ p {
   background-color: #f4f7fe;
   color: #444444; }
 
-  .example-form {
+  .Vertical-form {
     width: 100%;
   }
 
@@ -21,4 +21,18 @@ p {
 
 #info{
    margin-left:70%;
+}
+
+
+.value-button {
+  text-align: right;
+}
+
+input.value-button::-webkit-outer-spin-button,
+input.value-button::-webkit-inner-spin-button {
+  display: none;
+}
+
+input.value-button {
+  -moz-appearance: textfield;
 }

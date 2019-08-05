@@ -7,6 +7,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatDialog} from '@angular/material';
 import { Info1Component } from './info1/info1.component';
+import { IndoForAmountComponent } from './indo-for-amount/indo-for-amount.component';
 import {MatDatepickerModule,MatNativeDateModule,MatIconModule} from '@angular/material';
 import {
   MatButtonModule,
@@ -76,4 +77,13 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     });
   }
+  openDialogAmount(): void {
+  const dialogRef = this.dialog.open(IndoForAmountComponent, {
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    console.log('The dialog was closed');
+
+  });
+}
 }
