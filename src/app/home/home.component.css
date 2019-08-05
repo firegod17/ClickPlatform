@@ -1,0 +1,24 @@
+p {
+  color: #8892a0;
+  font-weight: 400; }
+
+.bg-gray {
+  background-color: #f4f7fe;
+  color: #444444; }
+
+  .example-form {
+    width: 100%;
+  }
+
+.example-full-width {
+    width: 80%;
+  }
+
+#Submit{
+  color: #6A1B9A;
+  /* background-color: #388E3C; */
+}
+
+#info{
+   margin-left:70%;
+}

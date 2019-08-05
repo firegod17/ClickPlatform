@@ -18,8 +18,20 @@ import { RegisterComponent } from './register';
 import { StatisticsComponent } from './statistics';
 import { MyPasswordComponent } from './my-password';
 import { AuthService } from '@app/_services';
-import { VerifyEmailComponent } from './verify-email';
-
+import { VerifyEmailComponent } from './verify-email';;
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatDatepickerModule,MatNativeDateModule,MatIconModule} from '@angular/material';
+import {
+  MatButtonModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatRippleModule
+} from '@angular/material';;
+import { Info1Component } from './home/info1/info1.component'
 
 @NgModule({
     imports: [
@@ -28,7 +40,20 @@ import { VerifyEmailComponent } from './verify-email';
         HttpClientModule,
         routing,
         RouterModule,
+        BrowserAnimationsModule,
+        MatTabsModule,
+        MatStepperModule,
+        MatButtonModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatRippleModule,
+        MatExpansionModule,
+        MatDialogModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatIconModule,
     ],
+
     declarations: [
         AppComponent,
         AlertComponent,
@@ -37,9 +62,14 @@ import { VerifyEmailComponent } from './verify-email';
         RegisterComponent,
         StatisticsComponent,
         MyPasswordComponent ,
-        VerifyEmailComponent
+        VerifyEmailComponent,
+        Info1Component
+       ],
+    entryComponents: [
+        Info1Component,
        ],
     providers: [
+        MatDatepickerModule,
         AuthService,
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
@@ -47,6 +77,7 @@ import { VerifyEmailComponent } from './verify-email';
         // provider used to create fake backend
         // fakeBackendProvider
     ],
+
     bootstrap: [AppComponent]
 })
 
