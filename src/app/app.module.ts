@@ -17,7 +17,7 @@ import { LoginComponent } from './login';
 import { RegisterComponent } from './register';
 import { StatisticsComponent } from './statistics';
 import { MyPasswordComponent } from './my-password';
-import { AuthService } from '@app/_services';
+// import { AuthService } from '@app/_services';
 import { VerifyEmailComponent } from './verify-email';;
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import {MatTabsModule} from '@angular/material/tabs';
@@ -32,7 +32,11 @@ import {
   MatRippleModule
 } from '@angular/material';
 import { Info1Component } from './home/info1/info1.component';
-import { IndoForAmountComponent } from './home/indo-for-amount/indo-for-amount.component'
+import { IndoForAmountComponent } from './home/indo-for-amount/indo-for-amount.component';
+import { NextstepComponent } from './nextstep';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
+
 
 @NgModule({
     imports: [
@@ -53,6 +57,7 @@ import { IndoForAmountComponent } from './home/indo-for-amount/indo-for-amount.c
         MatDatepickerModule,
         MatNativeDateModule,
         MatIconModule,
+        MatCheckboxModule,
     ],
 
     declarations: [
@@ -65,14 +70,20 @@ import { IndoForAmountComponent } from './home/indo-for-amount/indo-for-amount.c
         MyPasswordComponent ,
         VerifyEmailComponent,
         Info1Component,
-        IndoForAmountComponent,       ],
+        IndoForAmountComponent,
+        NextstepComponent,
+        ],
     entryComponents: [
         Info1Component,
         IndoForAmountComponent,
+
+
        ],
     providers: [
         MatDatepickerModule,
-        AuthService,
+        MatExpansionModule,
+
+
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
 

@@ -8,6 +8,8 @@ import { AuthGuard } from './_guards';
 import { StatisticsComponent } from './statistics';
 import { MyPasswordComponent } from './my-password';
 import { VerifyEmailComponent } from './verify-email';
+import { NextstepComponent } from './nextstep';
+
 
 
 
@@ -16,10 +18,10 @@ const appRoutes: Routes = [
     { path: '', component: HomeComponent, canActivate: [AuthGuard] },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
-      { path: 'statistics', component: StatisticsComponent },
-          { path: 'my-password', component: MyPasswordComponent },
-          { path: 'verify-email', component: VerifyEmailComponent },
-
+    { path: 'statistics', component: StatisticsComponent },
+    { path: 'my-password', component: MyPasswordComponent },
+    { path: 'verify-email', component: VerifyEmailComponent },
+    { path: 'nextstep', component: NextstepComponent },
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
 ];
