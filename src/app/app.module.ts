@@ -35,6 +35,7 @@ import { Info1Component } from './home/info1/info1.component';
 import { IndoForAmountComponent } from './home/indo-for-amount/indo-for-amount.component';
 import { NextstepComponent } from './nextstep';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import {MatBadgeModule} from '@angular/material/badge';
 
 
 
@@ -58,6 +59,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
         MatNativeDateModule,
         MatIconModule,
         MatCheckboxModule,
+        MatBadgeModule,
     ],
 
     declarations: [

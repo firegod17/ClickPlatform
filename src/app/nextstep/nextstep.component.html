@@ -35,6 +35,7 @@
           </mat-panel-title>
           <mat-panel-description>
             Type your name and last name
+
             <mat-icon>account_circle</mat-icon>
           </mat-panel-description>
         </mat-expansion-panel-header>
@@ -85,6 +86,8 @@
   </mat-form-field></td>
 </tr></table>
         <mat-action-row>
+
+
           <button mat-button color="warn" (click)="prevStep()">Previous</button>
           <button mat-button color="primary" (click)="nextStep()">End</button>
         </mat-action-row>
@@ -113,6 +116,7 @@
           <mat-tab-group [selectedIndex]="selected.value"
                (selectedIndexChange)="selected.setValue($event)">
   <mat-tab *ngFor="let tab of tabs; let index = index" [label]="tab">
+<br><br>
 <p>
   <mat-form-field>
     <input matInput placeholder="First name">
@@ -166,6 +170,9 @@
 
 <mat-action-row>
 
+    <span id="badge"matBadge="4" matBadgeOverlap="false">Administrators</span>
+
+
   <button mat-button color="primary" (click)="nextStep()">End</button>
 </mat-action-row>
         </mat-expansion-panel>
@@ -182,7 +189,7 @@
       </mat-tab>
       <mat-tab label="Benefieciaries">
         <mat-accordion class="example-headers-align">
-        <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+        <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
 
 
           <mat-expansion-panel-header>

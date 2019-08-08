@@ -53,3 +53,7 @@ mat-form-field {
 .mat-sort-header-container {
   align-items: center;
 }
+#badge{
+  margin-top: 8px;
+  margin-right: 78%;
+}
