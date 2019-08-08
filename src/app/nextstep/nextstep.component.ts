@@ -40,12 +40,12 @@ export class NextstepComponent implements OnInit, OnDestroy {
     currentUserSubscription: Subscription;
     users: User[] = [];
     verificationForm: FormGroup;
-    verificationFormAdmin: FormGroup;
     loading = false;
     submitted = false;
     step = 0;
     tabs = ['First', 'Second', 'Third'];
     selected = new FormControl(0);
+    // countertabs = 0;
 
 
 
@@ -65,21 +65,6 @@ export class NextstepComponent implements OnInit, OnDestroy {
     }
     ngOnInit() {
         this.loadAllUsers();
-        this.verificationForm = this.formBuilder.group({
-            idUser: this.currentUser,
-            firstName: ['', Validators.required],
-            lasttName: ['', Validators.required],
-            Address: ['', Validators.required],
-            Address2: ['', Validators.required],
-            city: ['', Validators.required],
-            state: ['', Validators.required],
-            zip: ['', Validators.required],
-
-        });
-        this.verificationFormAdmin = this.formBuilder.group({
-            idUser: this.currentUser,
-            firstName: ['', Validators.required],
-        });
     }
 
     ngOnDestroy() {
@@ -115,55 +100,17 @@ export class NextstepComponent implements OnInit, OnDestroy {
       this.step--;
     }
     addTab(selectAfterAdding: boolean) {
-      this.tabs.push('New');
+      this.countertabs = 3;
+    this.countertabs = countertabs + 1 ;
+      if (selectAfterAdding)
+      {
+          this.tabs.push('New' + this.countertabs);
+      }
+  this.tabs.push('New' + this.countertabs);
 
-      // if (selectAfterAdding) {
-      //   this.selected.setValue(this.tabs.length - 1);
-      // }
-    }
-
-    onSubmit() {
-        this.submitted = true;
-
-        // stop here if form is invalid
-        if (this.verificationForm.invalid) {
-            return;
-        }
-
-        this.loading = true;
-        this.userService.grantor(this.verificationForm.value)
-            .pipe(first())
-            .subscribe(
-                data => {
-                    this.alertService.success('Registration successful', true);
-                    this.router.navigate(['/']);
-                },
-                error => {
-                    this.alertService.error(error);
-                    this.loading = false;
-                });
-    }
-
-    onSubmitAdmin() {
-        this.submitted = true;
-
-        // stop here if form is invalid
-        if (this.verificationFormAdmin.invalid) {
-            return;
-        }
-
-        this.loading = true;
-        this.userService.administrator(this.verificationFormAdmin.value)
-            .pipe(first())
-            .subscribe(
-                data => {
-                    this.alertService.success('Registration successful', true);
-                    this.router.navigate(['/']);
-                },
-                error => {
-                    this.alertService.error(error);
-                    this.loading = false;
-                });
+      if (selectAfterAdding) {
+        this.selected.setValue(this.tabs.length - 1);
+      }
     }
 
     removeTab(index: number) {
