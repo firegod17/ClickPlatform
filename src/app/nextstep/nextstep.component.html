@@ -22,11 +22,11 @@
   </div>
   <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
 
-      <form [formGroup]="verificationForm"  action="/Verify" >
 
 
     <mat-tab-group>
       <mat-tab label="Grantor">
+        <form [formGroup]="verificationForm"  action="/Verify" >
       <mat-accordion class="example-headers-align">
       <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
         <mat-expansion-panel-header>
@@ -41,11 +41,11 @@
         </mat-expansion-panel-header>
 
         <mat-form-field>
-          <input matInput placeholder="First name">
+          <input matInput formControlName="firstName" placeholder="First name">
         </mat-form-field>
 
         <mat-form-field>
-          <input matInput type="number" min="1" placeholder="Last name">
+          <input matInput formControlName="lasttName" placeholder="Last name">
         </mat-form-field>
 
         <mat-action-row>
@@ -66,22 +66,22 @@
 
         <p>
   <mat-form-field class="example-full-width">
-    <textarea matInput placeholder="Address">Your address</textarea>
+    <textarea matInput formControlName="Address" placeholder="Address">Your address</textarea>
   </mat-form-field>
   <mat-form-field class="example-full-width">
-    <textarea matInput placeholder="Address 2"></textarea>
+    <textarea matInput formControlName="Address2" placeholder="Address 2"></textarea>
   </mat-form-field>
 </p>
 
 <table class="example-full-width" cellspacing="0"><tr>
   <td><mat-form-field class="example-full-width">
-    <input matInput placeholder="City">
+    <input matInput formControlName="city" placeholder="City">
   </mat-form-field></td>
   <td><mat-form-field class="example-full-width">
-    <input matInput placeholder="State">
+    <input matInput formControlName="state" placeholder="State">
   </mat-form-field></td>
   <td><mat-form-field class="example-full-width">
-    <input matInput #postalCode maxlength="5" placeholder="Postal Code" value="">
+    <input matInput #postalCode formControlName="zip" maxlength="5" placeholder="Postal Code" value="">
     <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
   </mat-form-field></td>
 </tr></table>
@@ -89,7 +89,7 @@
 
 
           <button mat-button color="warn" (click)="prevStep()">Previous</button>
-          <button mat-button color="primary" (click)="nextStep()">End</button>
+          <button mat-button color="primary" (click)="onSubmit()">End</button>
         </mat-action-row>
       </mat-expansion-panel>
 
@@ -97,9 +97,11 @@
 
 
     </mat-accordion>
+    </form>
     </mat-tab>
 
       <mat-tab label="Administrators">
+        <form [formGroup]="verificationFormAdmin"  action="/Verify" >
         <mat-accordion class="example-headers-align">
         <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
           <mat-expansion-panel-header>
@@ -119,7 +121,7 @@
 <br><br>
 <p>
   <mat-form-field>
-    <input matInput placeholder="First name">
+    <input matInput formControlName="firstName" placeholder="First name">
   </mat-form-field>
 
   <mat-form-field>
@@ -170,10 +172,13 @@
 
 <mat-action-row>
 
+
     <span id="badge"matBadge="4" matBadgeOverlap="false">Administrators</span>
 
 
-  <button mat-button color="primary" (click)="nextStep()">End</button>
+
+  <button mat-button color="primary"  (click)="onSubmitAdmin()">End</button>
+
 </mat-action-row>
         </mat-expansion-panel>
 
@@ -186,6 +191,7 @@
 
 
       </mat-accordion>
+      </form>
       </mat-tab>
       <mat-tab label="Benefieciaries">
         <mat-accordion class="example-headers-align">
@@ -249,7 +255,6 @@
     <br>
 
 
-    </form>
 
   </div>
 
