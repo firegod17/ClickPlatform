@@ -109,33 +109,20 @@
             </mat-panel-description>
           </mat-expansion-panel-header>
 
-          <mat-form-field>
-            <input matInput placeholder="First name">
-          </mat-form-field>
-
-          <mat-form-field>
-            <input matInput type="number" min="1" placeholder="Last name">
-          </mat-form-field>
-
-          <mat-action-row>
-            <button mat-button color="primary" (click)="nextStep()">Next</button>
-          </mat-action-row>
-        </mat-expansion-panel>
-
-        <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Destination
-            </mat-panel-title>
-            <mat-panel-description>
-              Type the country name
-              <mat-icon>map</mat-icon>
-            </mat-panel-description>
-          </mat-expansion-panel-header>
 
           <mat-tab-group [selectedIndex]="selected.value"
                (selectedIndexChange)="selected.setValue($event)">
   <mat-tab *ngFor="let tab of tabs; let index = index" [label]="tab">
+<p>
+  <mat-form-field>
+    <input matInput placeholder="First name">
+  </mat-form-field>
+
+  <mat-form-field>
+      <input matInput placeholder="Last Name">
+  </mat-form-field>
+</p>
+
     <p>
   <mat-form-field class="example-full-width">
   <textarea matInput placeholder="Address">Your address</textarea>
@@ -177,6 +164,63 @@
   </mat-tab>
 </mat-tab-group>
 
+<mat-action-row>
+
+  <button mat-button color="primary" (click)="nextStep()">End</button>
+</mat-action-row>
+        </mat-expansion-panel>
+
+
+
+
+
+
+
+
+
+      </mat-accordion>
+      </mat-tab>
+      <mat-tab label="Benefieciaries">
+        <mat-accordion class="example-headers-align">
+        <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+
+
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Personal data
+            </mat-panel-title>
+            <mat-panel-description>
+              Type your full name
+              <mat-icon>account_circle</mat-icon>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+
+      <mat-tab-group [selectedIndex]="selected.value"
+           (selectedIndexChange)="selected.setValue($event)">
+<mat-tab *ngFor="let tab of tabs; let index = index" [label]="tab">
+<br><br>
+  <mat-form-field class="example-full-width">
+<input matInput placeholder="Full name">
+</mat-form-field>
+
+<button mat-raised-button
+    class="example-delete-tab-button"
+    [disabled]="tabs.length === 0"
+    (click)="addTab()">
+ New tab
+</button>
+<!-- <mat-checkbox #selectAfterAdding> Select tab after adding </mat-checkbox> -->
+
+
+
+<button mat-raised-button
+        class="example-delete-tab-button"
+        [disabled]="tabs.length === 1"
+        (click)="removeTab(index)">
+  Delete Tab
+</button>
+</mat-tab>
+</mat-tab-group>
 
 
           <mat-action-row>
@@ -190,7 +234,6 @@
 
       </mat-accordion>
       </mat-tab>
-      <mat-tab label="Benefieciaries"> Content 3 </mat-tab>
     </mat-tab-group>
 
     <br>
