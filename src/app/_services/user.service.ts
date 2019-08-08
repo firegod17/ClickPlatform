@@ -23,7 +23,16 @@ export class UserService {
     verify(user: User) {
         return this.http.post(`${environment.apiUrl}/users/verify`, user);
         console.log(User);
+    }
 
+    grantor(user: User) {
+        return this.http.post(`${environment.apiUrl}/users/grantor`, user);
+        console.log(User);
+    }
+
+    administrator(user: User) {
+        return this.http.post(`${environment.apiUrl}/users/administrator`, user);
+        console.log(User);
     }
 
     update(user: User) {
