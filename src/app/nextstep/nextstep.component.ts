@@ -45,7 +45,7 @@ export class NextstepComponent implements OnInit, OnDestroy {
     step = 0;
     tabs = ['First', 'Second', 'Third'];
     selected = new FormControl(0);
-    // countertabs = 0;
+    countertabs = 0;
 
 
 
@@ -101,13 +101,13 @@ export class NextstepComponent implements OnInit, OnDestroy {
     }
     addTab(selectAfterAdding: boolean) {
       this.countertabs = 3;
-    this.countertabs = countertabs + 1 ;
+    this.countertabs = this.countertabs + 1 ;
       if (selectAfterAdding)
       {
           this.tabs.push('New' + this.countertabs);
       }
-  this.tabs.push('New' + this.countertabs);
-
+  // this.tabs.push('New');
+      //
       if (selectAfterAdding) {
         this.selected.setValue(this.tabs.length - 1);
       }
