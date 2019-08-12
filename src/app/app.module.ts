@@ -36,6 +36,7 @@ import { IndoForAmountComponent } from './home/indo-for-amount/indo-for-amount.c
 import { NextstepComponent } from './nextstep';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import {MatBadgeModule} from '@angular/material/badge';
+import { FirststepComponent } from './firststep/firststep.component'
 
 
 
@@ -74,6 +75,7 @@ import {MatBadgeModule} from '@angular/material/badge';
         Info1Component,
         IndoForAmountComponent,
         NextstepComponent,
+        FirststepComponent
         ],
     entryComponents: [
         Info1Component,

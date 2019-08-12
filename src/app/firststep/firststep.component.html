@@ -1,0 +1,182 @@
+<!-- Posts section -->
+
+
+<div class=" row verify" >
+  <div class="col-xs-0 col-sm-0 col-md-4 col-lg-4">
+    <button mat-button   color="warn" routerLink="/nextstep">nextStep</button>
+
+
+  </div>
+
+  <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 Tax">
+
+  <h1 class="text-center">Hi {{currentUser.firstName}}!</h1>
+<form [formGroup]="verificationForm"  action="/Verify" >
+  <mat-tab-group mat-stretch-tabs  class="example-stretched-tabs mat-elevation-z4">
+  <mat-tab label="Tax Information">
+    <mat-vertical-stepper class="Vertical-form">
+      <mat-step>
+        <ng-template matStepLabel>Taxpayer Identification Number</ng-template>
+        <mat-form-field class="example-full-width">
+          <input formControlName="iTIN" matInput placeholder="ITIN" required>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+          <button mat-button id="info" (click)="openDialog()">
+            <mat-icon>info</mat-icon>
+          </button>
+        </div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Foreign Tax Identifying Number</ng-template>
+        <mat-form-field class="example-full-width">
+          <input formControlName="fTIN" matInput placeholder="FTIN" required>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+          <button mat-button id="info" (click)="openDialog()">
+            <mat-icon>info</mat-icon>
+          </button>
+        </div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Social Security Numberr</ng-template>
+        <mat-form-field class="example-full-width">
+          <input formControlName="sSN" matInput placeholder="SSN" required>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+          <button mat-button id="info" (click)="openDialog()">
+            <mat-icon>info</mat-icon>
+          </button>
+        </div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Date of Birth</ng-template>
+          <mat-form-field class="example-full-width">
+            <input formControlName="dataOfBirth" matInput [matDatepicker]="picker" placeholder="Choose a date" required>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
+          </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+
+        </div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Currently Staying in Country</ng-template>
+        <mat-form-field class="example-full-width">
+          <input formControlName="country" matInput placeholder="Country" required>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Currently Staying in City</ng-template>
+        <mat-form-field class="example-full-width">
+          <input  formControlName="city" matInput placeholder="City" required>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button id="Submit" tabindex="-1" type="button"
+            (click)='moveToSelectedTab("Incoming Amount")'>Submit</button>
+        </div>
+      </mat-step>
+    </mat-vertical-stepper>
+  </mat-tab>
+  <mat-tab label="Incoming Amount">
+    <mat-vertical-stepper class="Vertical-form">
+      <mat-step>
+        <ng-template matStepLabel>Family Monthly Income</ng-template>
+        <mat-form-field class="example-full-width">
+          <input formControlName="familyMonthlyIncome"  matInput placeholder="Amount" type="number" class="value-button">
+          <span matPrefix>$&nbsp;</span>
+          <span matSuffix>.00</span>
+        </mat-form-field>
+        <div>
+          <button mat-button id="Submit" tabindex="-1" type="button"
+          color="warn" (click)='moveToSelectedTab("Tax Information")'>Back</button>
+          <button mat-button matStepperNext>Next</button>
+          <button mat-button id="info" (click)="openDialogAmount()">
+            <mat-icon>info</mat-icon>
+          </button>
+        </div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Incoming From Investing (Monthly)</ng-template>
+        <mat-form-field class="example-full-width">
+          <input formControlName="incomingFromInvesting" matInput placeholder="Amount" type="number" class="value-button">
+          <span matPrefix>$&nbsp;</span>
+          <span matSuffix>.00</span>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Other Income</ng-template>
+        <mat-form-field class="example-full-width">
+          <input formControlName="otherIncome"  matInput placeholder="Amount" type="number" class="value-button">
+          <span matPrefix>$&nbsp;</span>
+          <span matSuffix>.00</span>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Term Loan</ng-template>
+        <mat-form-field class="example-full-width">
+          <input formControlName="termLoan" matInput placeholder="Amount" type="number" class="value-button">
+          <span matPrefix>$&nbsp;</span>
+          <span matSuffix>.00</span>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button id="Submit" tabindex="-1" type="button"
+            (click)='moveToSelectedTab("Loan Amount")'>Submit</button>
+          <button mat-button id="info" (click)="openDialogAmount()">
+            <mat-icon>info</mat-icon>
+          </button>
+        </div>
+      </mat-step>
+    </mat-vertical-stepper>
+  </mat-tab>
+  <mat-tab label="Loan Amount">
+    <mat-vertical-stepper class="Vertical-form">
+      <mat-step>
+        <ng-template matStepLabel>Loan Amount Required</ng-template>
+        <mat-form-field class="example-full-width">
+          <input  formControlName="loanAmountRequired" matInput placeholder="Amount" type="number" class="value-button">
+          <span matPrefix>$&nbsp;</span>
+          <span matSuffix>.00</span>
+        </mat-form-field>
+        <div>
+          <button mat-button id="Submit" tabindex="-1" type="button"
+          color="warn" (click)='moveToSelectedTab("Incoming Amount")'>Back</button>
+          <button mat-button  (click)="onSubmit()">Submit</button>
+        </div>
+      </mat-step>
+    </mat-vertical-stepper>
+    </mat-tab>
+</mat-tab-group>
+</form>
+
+</div>
+
+<!-- <button type="button" routerLink="/statistics" class="btn btn-primary">Statistics</button> -->
+<!-- <h1>Hi {{currentUser.firstName}}!</h1>
+
+<h3>All registered users:</h3>
+<ul>
+    <li *ngFor="let user of users">
+        {{user.username}} ({{user.firstName}} {{user.email}} {{user.number}})
+        - <a (click)="deleteUser(user.id)" class="text-danger">Delete</a>
+    </li>
+</ul> -->

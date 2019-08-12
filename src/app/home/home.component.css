@@ -1,38 +1,29 @@
-p {
-  color: #8892a0;
-  font-weight: 400; }
+.example-ripple-container {
+  cursor: pointer;
+  text-align: center;
 
-.bg-gray {
-  background-color: #f4f7fe;
-  color: #444444; }
+  width: 300px;
+  height: 300px;
+  line-height: 300px;
 
-  .Vertical-form {
-    width: 100%;
-  }
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 
-.example-full-width {
-    width: 80%;
-  }
-
-#Submit{
-  color: #6A1B9A;
-  /* background-color: #388E3C; */
+  -webkit-user-drag: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
-#info{
-   margin-left:70%;
+/** Styles to make the demo look better. */
+.example-ripple-checkbox {
+  margin: 6px 12px 6px 0;
 }
 
-
-.value-button {
-  text-align: right;
+.example-ripple-form-field {
+  margin: 0 12px 0 0;
 }
-
-input.value-button::-webkit-outer-spin-button,
-input.value-button::-webkit-inner-spin-button {
-  display: none;
-}
-
-input.value-button {
-  -moz-appearance: textfield;
+.inputStart{
+  margin-left: auto;
+  margin-right: auto;
 }

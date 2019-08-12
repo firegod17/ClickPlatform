@@ -2,248 +2,251 @@
 
   <div class="col-xs-0 col-sm-0 col-md-4 col-lg-4">
     <table matSort (matSortChange)="sortData($event)">
-    <tr>
-      <th mat-sort-header="name">Name UAcc</th>
-      <th mat-sort-header="calories">Test</th>
-      <th mat-sort-header="fat">Test1</th>
-      <th mat-sort-header="carbs">Test2</th>
-      <th mat-sort-header="protein">Test3</th>
-    </tr>
+      <tr>
+        <th mat-sort-header="name">Name UAcc</th>
+        <th mat-sort-header="calories">Test</th>
+        <th mat-sort-header="fat">Test1</th>
+        <th mat-sort-header="carbs">Test2</th>
+        <th mat-sort-header="protein">Test3</th>
+      </tr>
 
-    <tr *ngFor="let dessert of sortedData">
-      <td>{{dessert.name}}</td>
-      <td>{{dessert.calories}}</td>
-      <td>{{dessert.fat}}</td>
-      <td>{{dessert.carbs}}</td>
-      <td>{{dessert.protein}}</td>
-    </tr>
-  </table>
+      <tr *ngFor="let dessert of sortedData">
+        <td>{{dessert.name}}</td>
+        <td>{{dessert.calories}}</td>
+        <td>{{dessert.fat}}</td>
+        <td>{{dessert.carbs}}</td>
+        <td>{{dessert.protein}}</td>
+      </tr>
+    </table>
 
   </div>
   <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
 
-      <form [formGroup]="verificationForm"  action="/Verify" >
+    <!-- <form [formGroup]="verificationForm"  > -->
 
 
-    <mat-tab-group>
-      <mat-tab label="Grantor">
-      <mat-accordion class="example-headers-align">
+      <mat-tab-group>
+        <mat-tab label="Trust">
+          <mat-accordion class="example-headers-align">
+            <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Personal data
+                </mat-panel-title>
+                <mat-panel-description>
+                  Type your name and last name
+                  <mat-icon>account_circle</mat-icon>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Full name">
+              </mat-form-field>
+
+
+              <mat-action-row>
+                <button mat-button color="warn" (click)="prevStep()">Previous</button>
+                <button mat-button  color="primary" (click)="nextStep()">End</button>
+              </mat-action-row>
+            </mat-expansion-panel>
+
+
+
+
+          </mat-accordion>
+        </mat-tab>
+        <mat-tab label="Grantor">
+          <mat-accordion class="example-headers-align">
+            <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Personal data
+                </mat-panel-title>
+                <mat-panel-description>
+                  Type your name and last name
+                  <mat-icon>account_circle</mat-icon>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+
+              <mat-form-field>
+                <input matInput placeholder="First name">
+              </mat-form-field>
+
+              <mat-form-field>
+                <input matInput type="number" min="1" placeholder="Last name">
+              </mat-form-field>
+
+              <mat-action-row>
+                <button mat-button color="primary" (click)="nextStep()">Next</button>
+              </mat-action-row>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Destination
+                </mat-panel-title>
+                <mat-panel-description>
+                  Type the country name
+                  <mat-icon>map</mat-icon>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+
+              <p>
+                <mat-form-field class="example-full-width">
+                  <textarea matInput placeholder="Address">Your address</textarea>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                  <textarea matInput placeholder="Address 2"></textarea>
+                </mat-form-field>
+              </p>
+
+              <table class="example-full-width" cellspacing="0"><tr>
+                <td><mat-form-field class="example-full-width">
+                  <input matInput placeholder="City">
+                </mat-form-field></td>
+                <td><mat-form-field class="example-full-width">
+                  <input matInput placeholder="State">
+                </mat-form-field></td>
+                <td><mat-form-field class="example-full-width">
+                  <input matInput #postalCode maxlength="5" placeholder="Postal Code" value="">
+                  <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
+                </mat-form-field></td>
+              </tr></table>
+              <mat-action-row>
+                <button mat-button color="warn" (click)="prevStep()">Previous</button>
+                <button mat-button color="primary" (click)="nextStep()">End</button>
+              </mat-action-row>
+            </mat-expansion-panel>
+
+
+
+
+          </mat-accordion>
+        </mat-tab>
+
+        <mat-tab label="Administrators">
+          <mat-accordion class="example-headers-align">
+            <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Personal data
+                </mat-panel-title>
+                <mat-panel-description>
+                  Type your name and last name
+                  <mat-icon>account_circle</mat-icon>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+
+
+              <mat-tab-group [selectedIndex]="selected.value"
+              (selectedIndexChange)="selected.setValue($event)">
+              <mat-tab *ngFor="let tab of tabs; let index = index" [label]="tab">
+                <p>
+                  <mat-form-field>
+                    <input matInput placeholder="First name">
+                  </mat-form-field>
+
+                  <mat-form-field>
+                    <input matInput placeholder="Last Name">
+                  </mat-form-field>
+                </p>
+
+                <p>
+                  <mat-form-field class="example-full-width">
+                    <textarea matInput placeholder="Address">Your address</textarea>
+                  </mat-form-field>
+                  <mat-form-field class="example-full-width">
+                    <textarea matInput placeholder="Address 2"></textarea>
+                  </mat-form-field>
+                </p>
+
+                <table class="example-full-width" cellspacing="0"><tr>
+                  <td><mat-form-field class="example-full-width">
+                    <input matInput placeholder="City">
+                  </mat-form-field></td>
+                  <td><mat-form-field class="example-full-width">
+                    <input matInput placeholder="State">
+                  </mat-form-field></td>
+                  <td><mat-form-field class="example-full-width">
+                    <input matInput #postalCode maxlength="5" placeholder="Postal Code" value="">
+                    <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
+                  </mat-form-field></td>
+                </tr></table>
+
+                <button mat-raised-button
+                class="example-delete-tab-button"
+                [disabled]="tabs.length === 0"
+                (click)="addTab()">
+                New tab
+              </button>
+              <!-- <mat-checkbox #selectAfterAdding> Select tab after adding </mat-checkbox> -->
+
+
+
+              <button mat-raised-button
+              class="example-delete-tab-button"
+              [disabled]="tabs.length === 1"
+              (click)="removeTab(index)">
+              Delete Tab
+
+            </button>
+          </mat-tab>
+        </mat-tab-group>
+        <mat-action-row>
+          <button mat-button color="primary" (click)="nextStep()">End</button>
+        </mat-action-row>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-tab>
+  <mat-tab label="Benefieciaries">
+    <mat-accordion class="example-headers-align">
       <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
         <mat-expansion-panel-header>
           <mat-panel-title>
             Personal data
           </mat-panel-title>
           <mat-panel-description>
-            Type your name and last name
+            Type your full name
             <mat-icon>account_circle</mat-icon>
           </mat-panel-description>
         </mat-expansion-panel-header>
-
-        <mat-form-field>
-          <input matInput placeholder="First name">
-        </mat-form-field>
-
-        <mat-form-field>
-          <input matInput type="number" min="1" placeholder="Last name">
-        </mat-form-field>
-
-        <mat-action-row>
-          <button mat-button color="primary" (click)="nextStep()">Next</button>
-        </mat-action-row>
-      </mat-expansion-panel>
-
-      <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Destination
-          </mat-panel-title>
-          <mat-panel-description>
-            Type the country name
-            <mat-icon>map</mat-icon>
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-
-        <p>
-  <mat-form-field class="example-full-width">
-    <textarea matInput placeholder="Address">Your address</textarea>
-  </mat-form-field>
-  <mat-form-field class="example-full-width">
-    <textarea matInput placeholder="Address 2"></textarea>
-  </mat-form-field>
-</p>
-
-<table class="example-full-width" cellspacing="0"><tr>
-  <td><mat-form-field class="example-full-width">
-    <input matInput placeholder="City">
-  </mat-form-field></td>
-  <td><mat-form-field class="example-full-width">
-    <input matInput placeholder="State">
-  </mat-form-field></td>
-  <td><mat-form-field class="example-full-width">
-    <input matInput #postalCode maxlength="5" placeholder="Postal Code" value="">
-    <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
-  </mat-form-field></td>
-</tr></table>
-        <mat-action-row>
-          <button mat-button color="warn" (click)="prevStep()">Previous</button>
-          <button mat-button color="primary" (click)="nextStep()">End</button>
-        </mat-action-row>
-      </mat-expansion-panel>
-
-
-
-
-    </mat-accordion>
-    </mat-tab>
-
-      <mat-tab label="Administrators">
-        <mat-accordion class="example-headers-align">
-        <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Personal data
-            </mat-panel-title>
-            <mat-panel-description>
-              Type your name and last name
-              <mat-icon>account_circle</mat-icon>
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-
-
-          <mat-tab-group [selectedIndex]="selected.value"
-               (selectedIndexChange)="selected.setValue($event)">
-  <mat-tab *ngFor="let tab of tabs; let index = index" [label]="tab">
-<p>
-  <mat-form-field>
-    <input matInput placeholder="First name">
-  </mat-form-field>
-
-  <mat-form-field>
-      <input matInput placeholder="Last Name">
-  </mat-form-field>
-</p>
-
-    <p>
-  <mat-form-field class="example-full-width">
-  <textarea matInput placeholder="Address">Your address</textarea>
-  </mat-form-field>
-  <mat-form-field class="example-full-width">
-  <textarea matInput placeholder="Address 2"></textarea>
-  </mat-form-field>
-  </p>
-
-  <table class="example-full-width" cellspacing="0"><tr>
-  <td><mat-form-field class="example-full-width">
-  <input matInput placeholder="City">
-  </mat-form-field></td>
-  <td><mat-form-field class="example-full-width">
-  <input matInput placeholder="State">
-  </mat-form-field></td>
-  <td><mat-form-field class="example-full-width">
-  <input matInput #postalCode maxlength="5" placeholder="Postal Code" value="">
-  <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
-  </mat-form-field></td>
-  </tr></table>
-
-<button mat-raised-button
-        class="example-delete-tab-button"
-        [disabled]="tabs.length === 0"
-        (click)="addTab()">
-     New tab
-</button>
- <!-- <mat-checkbox #selectAfterAdding> Select tab after adding </mat-checkbox> -->
-
-
-
-    <button mat-raised-button
-            class="example-delete-tab-button"
-            [disabled]="tabs.length === 1"
-            (click)="removeTab(index)">
-      Delete Tab
-    </button>
-  </mat-tab>
-</mat-tab-group>
-
-<mat-action-row>
-
-  <button mat-button color="primary" (click)="nextStep()">End</button>
-</mat-action-row>
-        </mat-expansion-panel>
-
-
-
-
-
-
-
-
-
-      </mat-accordion>
-      </mat-tab>
-      <mat-tab label="Benefieciaries">
-        <mat-accordion class="example-headers-align">
-        <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
-
-
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Personal data
-            </mat-panel-title>
-            <mat-panel-description>
-              Type your full name
-              <mat-icon>account_circle</mat-icon>
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-
-      <mat-tab-group [selectedIndex]="selected.value"
-           (selectedIndexChange)="selected.setValue($event)">
-<mat-tab *ngFor="let tab of tabs; let index = index" [label]="tab">
-<br><br>
-  <mat-form-field class="example-full-width">
-<input matInput placeholder="Full name">
-</mat-form-field>
-
-<button mat-raised-button
-    class="example-delete-tab-button"
-    [disabled]="tabs.length === 0"
-    (click)="addTab()">
- New tab
-</button>
-<!-- <mat-checkbox #selectAfterAdding> Select tab after adding </mat-checkbox> -->
-
-
-
-<button mat-raised-button
+        <mat-tab-group [selectedIndex]="selected.value"
+        (selectedIndexChange)="selected.setValue($event)">
+        <mat-tab *ngFor="let tab of tabs; let index = index" [label]="tab">
+          <br><br>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Full name">
+          </mat-form-field>
+          <button mat-raised-button
+          class="example-delete-tab-button"
+          [disabled]="tabs.length === 0"
+          (click)="addTab()">
+          New tab
+        </button>
+        <!-- <mat-checkbox #selectAfterAdding> Select tab after adding </mat-checkbox> -->
+        <button mat-raised-button
         class="example-delete-tab-button"
         [disabled]="tabs.length === 1"
         (click)="removeTab(index)">
-  Delete Tab
-</button>
+        Delete Tab
+      </button>
+    </mat-tab>
+  </mat-tab-group>
+  <mat-action-row>
+    <button mat-button color="warn" (click)="prevStep()">Previous</button>
+    <button mat-button color="primary" (click)="nextStep()">End</button>
+  </mat-action-row>
+</mat-expansion-panel>
+</mat-accordion>
 </mat-tab>
 </mat-tab-group>
 
+<br>
+<br>
+<br>
+<br>
 
-          <mat-action-row>
-            <button mat-button color="warn" (click)="prevStep()">Previous</button>
-            <button mat-button color="primary" (click)="nextStep()">End</button>
-          </mat-action-row>
-        </mat-expansion-panel>
-
-
-
-
-      </mat-accordion>
-      </mat-tab>
-    </mat-tab-group>
-
-    <br>
-    <br>
-    <br>
-    <br>
-
-
-    </form>
-
-  </div>
-
+<!-- </form> -->
+</div>
 </div>

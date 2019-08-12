@@ -9,6 +9,7 @@ import { StatisticsComponent } from './statistics';
 import { MyPasswordComponent } from './my-password';
 import { VerifyEmailComponent } from './verify-email';
 import { NextstepComponent } from './nextstep';
+import { FirststepComponent } from './firststep';
 
 
 
@@ -22,6 +23,7 @@ const appRoutes: Routes = [
     { path: 'my-password', component: MyPasswordComponent },
     { path: 'verify-email', component: VerifyEmailComponent },
     { path: 'nextstep', component: NextstepComponent },
+    {path: 'firststep', component: FirststepComponent},
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
 ];
