@@ -22,7 +22,7 @@
   </div>
   <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
 
-    <!-- <form [formGroup]="verificationForm"  > -->
+    <form [formGroup]="verificationForm" (ngSubmit)="onSubmit()">
 
 
       <mat-tab-group>
@@ -46,7 +46,7 @@
 
               <mat-action-row>
                 <button mat-button color="warn" (click)="prevStep()">Previous</button>
-                <button mat-button  color="primary" (click)="nextStep()">End</button>
+                <button mat-button  color="primary" (click)="nextStep()">Next</button>
               </mat-action-row>
             </mat-expansion-panel>
 
@@ -73,7 +73,7 @@
               </mat-form-field>
 
               <mat-form-field>
-                <input matInput type="number" min="1" placeholder="Last name">
+              <input matInput placeholder="Last name">
               </mat-form-field>
 
               <mat-action-row>
@@ -115,7 +115,7 @@
               </tr></table>
               <mat-action-row>
                 <button mat-button color="warn" (click)="prevStep()">Previous</button>
-                <button mat-button color="primary" (click)="nextStep()">End</button>
+                <button mat-button color="primary" (click)="onSubmit()">Next</button>
               </mat-action-row>
             </mat-expansion-panel>
 
@@ -143,6 +143,7 @@
               (selectedIndexChange)="selected.setValue($event)">
               <mat-tab *ngFor="let tab of tabs; let index = index" [label]="tab">
                 <p>
+                  <br><br>
                   <mat-form-field>
                     <input matInput placeholder="First name">
                   </mat-form-field>
@@ -235,7 +236,7 @@
   </mat-tab-group>
   <mat-action-row>
     <button mat-button color="warn" (click)="prevStep()">Previous</button>
-    <button mat-button color="primary" (click)="nextStep()">End</button>
+    <button mat-button color="primary" (click)="nextStep()">Next</button>
   </mat-action-row>
 </mat-expansion-panel>
 </mat-accordion>
@@ -247,6 +248,6 @@
 <br>
 <br>
 
-<!-- </form> -->
+</form>
 </div>
 </div>

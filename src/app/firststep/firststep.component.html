@@ -3,14 +3,15 @@
 
 <div class=" row verify" >
   <div class="col-xs-0 col-sm-0 col-md-4 col-lg-4">
-    <button mat-button   color="warn" routerLink="/nextstep">nextStep</button>
 
+  <h1 class="text-center">Hi {{currentUser.firstName}}!</h1>
+  <h2 class="i"><button mat-button   color="warn" routerLink="/nextstep">Next Step</button></h2>
 
   </div>
 
   <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 Tax">
 
-  <h1 class="text-center">Hi {{currentUser.firstName}}!</h1>
+
 <form [formGroup]="verificationForm"  action="/Verify" >
   <mat-tab-group mat-stretch-tabs  class="example-stretched-tabs mat-elevation-z4">
   <mat-tab label="Tax Information">
