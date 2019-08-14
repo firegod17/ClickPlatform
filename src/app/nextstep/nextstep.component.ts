@@ -38,9 +38,7 @@ export class NextstepComponent implements OnInit, OnDestroy {
   currentUser: User;
   currentUserSubscription: Subscription;
   users: User[] = [];
-  verificationForm: FormGroup;
-  verificationFormAdmin: FormGroup;
-  verificationFormTrust: FormGroup;
+  verifyNextStep: any;
   loading = false;
   submitted = false;
   step = 0;
@@ -66,19 +64,18 @@ export class NextstepComponent implements OnInit, OnDestroy {
   }
   ngOnInit() {
     this.loadAllUsers();
-    this.verificationForm = this.formBuilder.group({
-            idUser: this.currentUser,
-            firstName: ['', Validators.required],
+    this.verifyNextStep = this.formBuilder.group({
+      fullName: ['', Validators.required],
+        verificationForm: this.formBuilder.group({
+            firstName1: ['', Validators.required],
             lasttName: ['', Validators.required],
             Address: ['', Validators.required],
             Address2: ['', Validators.required],
             city: ['', Validators.required],
             state: ['', Validators.required],
             zip: ['', Validators.required],
-
-         });
-        this.verificationFormAdmin = this.formBuilder.group({
-            idUser: this.currentUser,
+         }),
+         verificationFormAdmin: this.formBuilder.group({
             firstName: ["",Validators.required],
             lasttttName: ["",Validators.required],
             Address1:["",Validators.required],
@@ -86,12 +83,8 @@ export class NextstepComponent implements OnInit, OnDestroy {
             state:["",Validators.required],
             postalCode:["",Validators.required],
             city:["",Validators.required],
-        });
-
-        this.verificationFormTrust = this.formBuilder.group({
-            idUser: this.currentUser,
-            FullName: ['', Validators.required],
-        });
+        }),
+      });
   }
 
   ngOnDestroy() {

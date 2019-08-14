@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
+import { JsonDecoder } from 'ts.data.json';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatExpansionModule} from '@angular/material/expansion';
@@ -58,12 +59,11 @@ export class FirststepComponent implements OnInit, OnDestroy {
             dataOfBirth: ['', Validators.required],
             country: ['', Validators.required],
             city: ['', Validators.required],
-            familyMonthlyIncome: ['$', Validators.required],
-            incomingFromInvesting: ['$', Validators.required],
-            otherIncome: ['$', Validators.required],
-            termLoan: ['$', Validators.required],
-            loanAmountRequired: ['$', Validators.required],
-
+            familyMonthlyIncome: ['', Validators.required],
+            incomingFromInvesting: ['', Validators.required],
+            otherIncome: ['', Validators.required],
+            termLoan: ['', Validators.required],
+            loanAmountRequired: ['', Validators.required],
         });
 
     }
@@ -112,17 +112,26 @@ export class FirststepComponent implements OnInit, OnDestroy {
       }
 
       this.loading = true;
-      this.userService.verify(this.verificationForm.value)
-          .pipe(first())
-          .subscribe(
-              data => {
-                  this.alertService.success('Registration successful', true);
-                  this.router.navigate(['/login']);
-              },
-              error => {
-                  this.alertService.error(error);
-                  this.loading = false;
-              });
+
+      var endpoint = "https://alcyone.meta-exchange.info/"
+
+
+        var httpPost = new XMLHttpRequest();
+
+        httpPost.onload = function(err) {
+            if (httpPost.readyState == 4 && httpPost.status == 200){
+                var response=JSON.parse(httpPost.responseText)//here you will get uploaded image id
+                console.log(response);
+                //location.reload()//Reload page after images upload
+            } else {
+                console.log(err);
+            }
+        }
+        httpPost.open("POST", endpoint+"fields/verify", true);
+        httpPost.setRequestHeader('Content-Type', 'application/json');
+        httpPost.setRequestHeader('Access-Control-Allow-Origin', '*');//Specifies type of request
+        httpPost.send(JSON.stringify({userId:this.currentUser,fields:this.verificationForm.value}))
+
   }
   openDialogAmount(): void {
   const dialogRef = this.dialog.open(IndoForAmountComponent, {
