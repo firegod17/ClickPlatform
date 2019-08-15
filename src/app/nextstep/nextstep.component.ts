@@ -133,7 +133,7 @@ export class NextstepComponent implements OnInit, OnDestroy {
         this.submitted = true;
 
          // stop here if form is invalid
-        if (this.verificationForm.invalid) {
+        if (this.verifyNextStep.invalid) {
             return;
         }
 
