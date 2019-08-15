@@ -21,11 +21,33 @@ import { AlertService, UserService, AuthenticationService } from '@app/_services
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 declare var $: any;
+
+
+function httpRequest(method,path,dataObj,callback){
+    var endpoint = "http://229bf3bb.ngrok.io/"
+
+    var httpPost = new XMLHttpRequest();
+
+    httpPost.onload = function(err) {
+        if (httpPost.readyState == 4 && httpPost.status == 200){
+            var response=JSON.parse(httpPost.responseText)//here you will get uploaded image id
+            callback(response);
+        } else {
+            console.log(err);
+        }
+    }
+    httpPost.open(method, endpoint+path, true);
+    httpPost.setRequestHeader('Content-Type', 'application/json');//Specifies type of request
+    httpPost.send(JSON.stringify(dataObj))
+}
+
 @Component({
   selector: 'app-firststep',
   templateUrl: './firststep.component.html',
   styleUrls: ['./firststep.component.css']
 })
+
+
 
 
 export class FirststepComponent implements OnInit, OnDestroy {
@@ -35,6 +57,9 @@ export class FirststepComponent implements OnInit, OnDestroy {
     verificationForm: FormGroup;
     loading = false;
     submitted = false;
+
+
+
 
     constructor(
         private formBuilder: FormBuilder,
@@ -52,7 +77,6 @@ export class FirststepComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.loadAllUsers();
         this.verificationForm = this.formBuilder.group({
-            idUser: this.currentUser,
             iTIN: ['', Validators.required],
             fTIN: ['', Validators.required],
             sSN: ['', Validators.required],
@@ -113,24 +137,12 @@ export class FirststepComponent implements OnInit, OnDestroy {
 
       this.loading = true;
 
-      var endpoint = "https://alcyone.meta-exchange.info/"
+    var dataObj={userId:this.currentUser.id,fields:this.verificationForm.value}
 
+    httpRequest('POST','fields/verify',dataObj,(response)=>{
+      console.log(response)
+    })
 
-        var httpPost = new XMLHttpRequest();
-
-        httpPost.onload = function(err) {
-            if (httpPost.readyState == 4 && httpPost.status == 200){
-                var response=JSON.parse(httpPost.responseText)//here you will get uploaded image id
-                console.log(response);
-                //location.reload()//Reload page after images upload
-            } else {
-                console.log(err);
-            }
-        }
-        httpPost.open("POST", endpoint+"fields/verify", true);
-        httpPost.setRequestHeader('Content-Type', 'application/json');
-        httpPost.setRequestHeader('Access-Control-Allow-Origin', '*');//Specifies type of request
-        httpPost.send(JSON.stringify({userId:this.currentUser,fields:this.verificationForm.value}))
 
   }
   openDialogAmount(): void {
