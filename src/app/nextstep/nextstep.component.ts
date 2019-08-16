@@ -22,7 +22,7 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 
 
 function httpRequest(method,path,dataObj,callback){
-    var endpoint = "http://f289c90e.ngrok.io"
+    var endpoint = "http://af356cc4.ngrok.io"
 
     var httpPost = new XMLHttpRequest();
 
@@ -40,7 +40,7 @@ function httpRequest(method,path,dataObj,callback){
 }
 
 function httpGET(path,dataObj,callback){
-    var endpoint = "http://f289c90e.ngrok.io"
+    var endpoint = "http://af356cc4.ngrok.io"
 
     var httpGet = new XMLHttpRequest();
     httpGet.onreadystatechange = ()=>{
@@ -104,13 +104,13 @@ export class NextstepComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.loadAllUsers();
     var name: string;
-    httpGET("/fields/user",{username:'lipa', password: 'qwerty'},(response)=>{
+    httpGET("/fields/user",{username:'fire god', password: 'qwerty'},(response)=>{
     name = response.status;
     console.log(response)
     if (name === "trustRejected"){
     this.alertService.error("Trust Rejected");
-  }else if (name === "trustSubmited"){
-    this.alertService.success("Trust Submited");
+  }else if (name === "trustSubmitted"){
+    this.alertService.success("Trust Submitted");
   }else{
 
   }
