@@ -20,6 +20,42 @@ import { AlertService, UserService, AuthenticationService } from '@app/_services
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
+
+function httpRequest(method,path,dataObj,callback){
+    var endpoint = "http://f289c90e.ngrok.io"
+
+    var httpPost = new XMLHttpRequest();
+
+    httpPost.onload = function(err) {
+        if (httpPost.readyState == 4 && httpPost.status == 200){
+            var response=JSON.parse(httpPost.responseText)//here you will get uploaded image id
+            callback(response);
+        } else {
+            console.log(err);
+        }
+    }
+    httpPost.open(method, endpoint+path, true);
+    httpPost.setRequestHeader('Content-Type', 'application/json');//Specifies type of request
+    httpPost.send(JSON.stringify(dataObj))
+}
+
+function httpGET(path,dataObj,callback){
+    var endpoint = "http://f289c90e.ngrok.io"
+
+    var httpGet = new XMLHttpRequest();
+    httpGet.onreadystatechange = ()=>{
+      if (httpGet.readyState == 4 && httpGet.status == 200) {
+          var response = JSON.parse(httpGet.responseText);
+          callback(response)
+      }
+    };
+    var queryString = Object.keys(dataObj).map(function(key) {
+        return key + '=' + dataObj[key]
+    }).join('&');
+    httpGet.open('GET', endpoint+path+"?"+queryString, true);
+    httpGet.send();
+}
+
 export interface Dessert {
   calories: number;
   carbs: number;
@@ -40,6 +76,7 @@ export class NextstepComponent implements OnInit, OnDestroy {
   users: User[] = [];
   verificationForm: FormGroup;
   verificationFormAdmin: FormGroup;
+  verificationFormBeneficiar: FormGroup;
   verificationFormTrust: FormGroup;
   loading = false;
   submitted = false;
@@ -66,8 +103,22 @@ export class NextstepComponent implements OnInit, OnDestroy {
   }
   ngOnInit() {
     this.loadAllUsers();
+    var name: string;
+    httpGET("/fields/user",{username:'lipa', password: 'qwerty'},(response)=>{
+    name = response.status;
+    console.log(response)
+    if (name === "trustRejected"){
+    this.alertService.error("Trust Rejected");
+  }else if (name === "trustSubmited"){
+    this.alertService.success("Trust Submited");
+  }else{
+
+  }
+    })
+
+
+
     this.verificationForm = this.formBuilder.group({
-            idUser: this.currentUser,
             firstName: ['', Validators.required],
             lasttName: ['', Validators.required],
             Address: ['', Validators.required],
@@ -78,7 +129,6 @@ export class NextstepComponent implements OnInit, OnDestroy {
 
          });
         this.verificationFormAdmin = this.formBuilder.group({
-            idUser: this.currentUser,
             firstName: ["",Validators.required],
             lasttttName: ["",Validators.required],
             Address1:["",Validators.required],
@@ -89,9 +139,12 @@ export class NextstepComponent implements OnInit, OnDestroy {
         });
 
         this.verificationFormTrust = this.formBuilder.group({
-            idUser: this.currentUser,
             FullName: ['', Validators.required],
         });
+        this.verificationFormBeneficiar = this.formBuilder.group({
+            FullName: ['', Validators.required],
+        });
+
   }
 
   ngOnDestroy() {
@@ -145,20 +198,41 @@ export class NextstepComponent implements OnInit, OnDestroy {
         }
 
          this.loading = true;
-        this.userService.grantor(this.verificationForm.value)
-            .pipe(first())
-            .subscribe(
-                data => {
-                    this.alertService.success('Registration successful', true);
-                    this.router.navigate(['/']);
-                },
-                error => {
-                    this.alertService.error(error);
-                    this.loading = false;
-                });
+         var fieldsObj=this.verificationForm.value;
+         delete fieldsObj['__proto__'];
+         var dataObj={
+                   userId:'5d5580ae7c213e60b8eff18f',
+                   fields:{
+                       grantor: fieldsObj,
+                   }
+               }
+               httpRequest("PUT",'/fields/trust',dataObj,(response)=>{
+                   console.log(response)
+ })
     }
 
-     onSubmitAdmin() {
+    submittedTrust(){
+      this.submitted = true;
+
+       // stop here if form is invalid
+      if (this.verificationFormTrust.invalid) {
+          return;
+      }
+      var dataObj={
+    userId:'5d5580ae7c213e60b8eff18f',
+    fields:{
+        trustName: this.verificationFormTrust.value.FullName,
+        administrators:[],
+        beneficiaries:[]
+        }
+    }
+    httpRequest("POST",'/fields/trust',dataObj,(response)=>{
+    console.log(response)
+    })
+
+    }
+
+     onSubmitAdmin(index: number) {
         this.submitted = true;
 
          // stop here if form is invalid
@@ -167,18 +241,48 @@ export class NextstepComponent implements OnInit, OnDestroy {
         }
 
          this.loading = true;
-        this.userService.administrator(this.verificationFormAdmin.value)
-            .pipe(first())
-            .subscribe(
-                data => {
-                    this.alertService.success('Registration successful', true);
 
-                },
-                error => {
-                    this.alertService.error(error);
-                    this.loading = false;
-                });
+         var fieldsObj=this.verificationFormAdmin.value;
+         delete fieldsObj['__proto__'];
+         var dataObj={
+          userId:'5d5580ae7c213e60b8eff18f',
+          push:'',
+          fields:{
+              administrators:fieldsObj,
+          }
+        }
+        httpRequest("PUT",'/fields/trust',dataObj,(response)=>{
+          console.log(response)
+        })
+
+        this.tabs.splice(index, 1);
     }
+
+    onSubmitBeneficiar(index: number) {
+       this.submitted = true;
+
+        // stop here if form is invalid
+       if (this.verificationFormBeneficiar.invalid) {
+           return;
+       }
+
+        this.loading = true;
+
+        var fieldsObj=this.verificationFormBeneficiar.value;
+        delete fieldsObj['__proto__'];
+        var dataObj={
+          userId:'5d5580ae7c213e60b8eff18f',
+          push:'',
+          fields:{
+              beneficiaries:fieldsObj,
+            }
+          }
+          httpRequest("PUT",'/fields/trust',dataObj,(response)=>{
+            console.log(response)
+          })
+
+       this.tabs.splice(index, 1);
+   }
 
   removeTab(index: number) {
     this.tabs.splice(index, 1);

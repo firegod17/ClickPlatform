@@ -47,7 +47,7 @@
 
               <mat-action-row>
                 <button mat-button color="warn" (click)="prevStep()">Previous</button>
-                <button mat-button  color="primary" (click)="nextStep()">Next</button>
+                <button mat-button  color="primary" (click)="submittedTrust()">Next</button>
               </mat-action-row>
             </mat-expansion-panel>
 
@@ -198,7 +198,7 @@
 
 
             </button>
-              <button mat-button color="primary" (click)="onSubmitAdmin()">End</button>
+              <button mat-button color="primary" (click)="onSubmitAdmin(index)">End</button>
           </mat-tab>
         </mat-tab-group>
         <mat-action-row>
@@ -210,6 +210,7 @@
 
   </mat-tab>
   <mat-tab label="Benefieciaries">
+    <form [formGroup]="verificationFormBeneficiar"  action="/Verify" >
     <mat-accordion class="example-headers-align">
       <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
         <mat-expansion-panel-header>
@@ -226,7 +227,7 @@
         <mat-tab *ngFor="let tab of tabs; let index = index" [label]="tab">
           <br><br>
           <mat-form-field class="example-full-width">
-            <input matInput placeholder="Full name">
+            <input matInput formControlName="FullName" placeholder="Full name">
           </mat-form-field>
           <button mat-raised-button
           class="example-delete-tab-button"
@@ -241,6 +242,7 @@
         (click)="removeTab(index)">
         Delete Tab
       </button>
+      <button mat-button color="primary" (click)="onSubmitBeneficiar(index)">End</button>
     </mat-tab>
   </mat-tab-group>
   <mat-action-row>
@@ -249,6 +251,8 @@
   </mat-action-row>
 </mat-expansion-panel>
 </mat-accordion>
+</form>
+
 </mat-tab>
 </mat-tab-group>
 
