@@ -9,7 +9,7 @@ import { AlertService, UserService, AuthenticationService } from '@app/_services
 declare var $: any;
 
 function httpRequest(method,path,dataObj,callback){
-    var endpoint = "http://229bf3bb.ngrok.io/"
+    var endpoint = "http://f289c90e.ngrok.io/"
 
     var httpPost = new XMLHttpRequest();
 
@@ -78,7 +78,7 @@ export class RegisterComponent implements OnInit {
         httpRequest('POST','fields/user',dataObj,(response)=>{
           console.log(response)
         })
-      
+
     }
 
 
