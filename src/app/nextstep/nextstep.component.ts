@@ -106,16 +106,31 @@ export class NextstepComponent implements OnInit, OnDestroy {
     var name: string;
     httpGET("/fields/user",{username:'fire god', password: 'qwerty'},(response)=>{
     name = response.status;
-    console.log(response)
-    if (name === "trustRejected"){
-    this.alertService.error("Trust Rejected");
-  }else if (name === "trustSubmitted"){
-    this.alertService.success("Trust Submitted");
-  }else{
-
-  }
+    console.log(response);
     })
 
+    if (name === "trustRejected"){
+    this.alertService.error("Trust Rejected");
+    }else if (name === "trustSubmitted"){
+    this.alertService.success("Trust Submitted");
+    }else{
+    this.alertService.warning("Please Trust Submitted");
+    }
+    
+    switch (name){
+      case "trustRejected": {
+        this.alertService.error("Trust Rejected");
+        break;
+      }
+      case "trustSubmitted": {
+        this.alertService.error("Trust Submitted");
+        break;
+      }
+      default: {
+        this.alertService.info("Please fill out this form and wait for an answer!");
+      break;
+      }
+    }
 
 
     this.verificationForm = this.formBuilder.group({
