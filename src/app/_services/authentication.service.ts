@@ -6,6 +6,25 @@ import { map } from 'rxjs/operators';
 import { environment } from '@environments/environment';
 import { User } from '@app/_models';
 
+function httpGET(path,dataObj,callback){
+  var endpoint="http://alcyone.meta-exchange.info/kyc/api";
+    var httpGet = new XMLHttpRequest();
+    httpGet.onreadystatechange = ()=>{
+      if (httpGet.readyState == 4 && httpGet.status == 200) {
+          var response = JSON.parse(httpGet.responseText);
+          var returnVar = callback(response);
+          if(returnVar!=null){
+            return returnVar;
+          }
+      }
+    };
+    var queryString = Object.keys(dataObj).map(function(key) {
+        return key + '=' + dataObj[key]
+    }).join('&');
+    httpGet.open('GET', endpoint+path+"?"+queryString, true);
+    httpGet.send();
+}
+
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
     private currentUserSubject: BehaviorSubject<User>;
@@ -21,17 +40,17 @@ export class AuthenticationService {
     }
 
     login(username: string, password: string) {
-        return this.http.post<any>(`${environment.apiUrl}/users/authenticate`, { username, password })
-            .pipe(map(user => {
+        var globalUser;
+         return httpGET("/fields/user", { username: "fire god", password: "qwerty"}, (user)=>{
                 // login successful if there's a jwt token in the response
-                if (user && user.token) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
+                    user.token = "asrdtfghkjl";
                     localStorage.setItem('currentUser', JSON.stringify(user));
                     this.currentUserSubject.next(user);
-                }
-
-                return user;
-            }));
+                    // globalUser = user;
+                    return user;
+            });
+        // return globalUser;
     }
 
     logout() {
