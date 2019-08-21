@@ -24,6 +24,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatDatepickerModule,MatNativeDateModule,MatIconModule} from '@angular/material';
 import {
   MatButtonModule,
@@ -36,7 +37,10 @@ import { IndoForAmountComponent } from './home/indo-for-amount/indo-for-amount.c
 import { NextstepComponent } from './nextstep';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import {MatBadgeModule} from '@angular/material/badge';
-import { FirststepComponent } from './firststep/firststep.component'
+import { FirststepComponent } from './firststep/firststep.component';
+import { DocModuleComponent } from './doc-module/doc-module.component';
+import {MatCardModule} from '@angular/material/card';
+
 
 
 
@@ -61,6 +65,10 @@ import { FirststepComponent } from './firststep/firststep.component'
         MatIconModule,
         MatCheckboxModule,
         MatBadgeModule,
+        MatTooltipModule,
+        MatCardModule,
+
+
     ],
 
     declarations: [
@@ -75,7 +83,8 @@ import { FirststepComponent } from './firststep/firststep.component'
         Info1Component,
         IndoForAmountComponent,
         NextstepComponent,
-        FirststepComponent
+        FirststepComponent,
+        DocModuleComponent
         ],
     entryComponents: [
         Info1Component,
@@ -86,6 +95,7 @@ import { FirststepComponent } from './firststep/firststep.component'
     providers: [
         MatDatepickerModule,
         MatExpansionModule,
+
 
 
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

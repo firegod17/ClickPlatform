@@ -103,6 +103,22 @@ export class HomeComponent implements OnInit, OnDestroy {
   onSubmit() {
       this.submitted = true;
 
+      var name: string;
+      switch (name){
+        case "trustRejected": {
+          this.alertService.error("Trust Rejected");
+          break;
+        }
+        case "trustSubmitted": {
+          this.alertService.error("Trust Submitted");
+          break;
+        }
+        default: {
+          this.alertService.warning("Nothing doesn't submitted");
+        break;
+        }
+      }
+
       // stop here if form is invalid
       if (this.verificationForm.invalid) {
           return;

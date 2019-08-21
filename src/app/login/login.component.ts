@@ -74,13 +74,13 @@ export class LoginComponent implements OnInit {
         console.log(this.loginForm.value)
 
 
-      httpGET("/fields/user",dataObj,(response)=>{
-
-       this.userObj = {username:this.response.value.username};
-       console.log( this.userObj);
-       this.authenticationService.login(this.res)
-
-      })
+      // httpGET("/fields/user",dataObj,(response)=>{
+      //
+      //  this.userObj = {username:this.response.value.username};
+      //  console.log( this.userObj);
+      //  this.authenticationService.login(this.res)
+      //
+      // })
 
         // stop here if form is invalid
         if (this.loginForm.invalid) {

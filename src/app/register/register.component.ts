@@ -9,7 +9,7 @@ import { AlertService, UserService, AuthenticationService } from '@app/_services
 declare var $: any;
 
 function httpRequest(method,path,dataObj,callback){
-    var endpoint = "http://f289c90e.ngrok.io/"
+    var endpoint = "http://alcyone.meta-exchange.info/kyc/api/"
 
     var httpPost = new XMLHttpRequest();
 
@@ -48,6 +48,7 @@ export class RegisterComponent implements OnInit {
     }
 
     ngOnInit() {
+
         this.registerForm = this.formBuilder.group({
             firstName: ['', Validators.required],
             lastName: ['', Validators.required],
@@ -77,10 +78,10 @@ export class RegisterComponent implements OnInit {
 
         httpRequest('POST','fields/user',dataObj,(response)=>{
           console.log(response)
+              this.router.navigate(['/login']);
         })
 
+
+
     }
-
-
-
 }

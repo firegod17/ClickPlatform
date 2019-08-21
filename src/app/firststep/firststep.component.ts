@@ -24,7 +24,7 @@ declare var $: any;
 
 
 function httpRequest(method,path,dataObj,callback){
-    var endpoint = "http://229bf3bb.ngrok.io/"
+    var endpoint = "http://af356cc4.ngrok.io/"
 
     var httpPost = new XMLHttpRequest();
 
@@ -142,6 +142,7 @@ export class FirststepComponent implements OnInit, OnDestroy {
     httpRequest('POST','fields/verify',dataObj,(response)=>{
       console.log(response)
     })
+    this.alertService.success("You Verify press 'Next Step'")
 
 
   }
