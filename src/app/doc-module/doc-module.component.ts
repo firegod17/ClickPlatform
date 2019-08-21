@@ -31,6 +31,14 @@ export class DocModuleComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    
   }
 
+  download() {
+
+  }
+
+  update() {
+
+  }
 }

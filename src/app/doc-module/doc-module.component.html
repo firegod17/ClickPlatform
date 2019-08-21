@@ -4,14 +4,16 @@
         matTooltip="Info about the action"
         matTooltipClass="example-tooltip-red"
         aria-label="Button that shows a red tooltip"
-        class="example-button">
+        class="example-button"
+        (click)="update()">
   Update
 </button>
 <button mat-raised-button
     matTooltip="Info about the action"
     matTooltipClass="example-tooltip-red"
     aria-label="Button that shows a red tooltip"
-    class="example-button" id="ebone">
+    class="example-button" id="ebone"
+    (click)="download()">
 Download
 </button>
   </div>
