@@ -47,6 +47,23 @@ function openFile (file,callback) {
     };
     reader.readAsDataURL(file);
 };
+function httpGET(path,dataObj,callback){
+  var	endpoint = 'http://alcyone.meta-exchange.info/kyc/api'
+    var httpGet = new XMLHttpRequest();
+    httpGet.onreadystatechange = ()=>{
+      if (httpGet.readyState == 4 && httpGet.status == 200) {
+          var response = JSON.parse(httpGet.responseText);
+          callback(response)
+      }
+    };
+    var queryString = Object.keys(dataObj).map(function(key) {
+        return key + '=' + dataObj[key]
+    }).join('&');
+    httpGet.open('GET', endpoint+path+"?"+queryString, true);
+    httpGet.send();
+}
+
+
 
 function handleFileSelect(evt) {
     var	endpoint = 'http://alcyone.meta-exchange.info/kyc/api'
@@ -80,11 +97,24 @@ export class DocModuleComponent implements OnInit {
   }
 
   download() {
-
-  }
+    var	endpoint = 'http://alcyone.meta-exchange.info/kyc/api';
+   httpGET('/data/doc',{userId:'5d55413393a5416114a113df',method:"download"});
+  window.open(endpoint+'/data/doc?userId='+'5d55413393a5416114a113df'+'&method=download')
+}
+open(){
+  var	endpoint = 'http://alcyone.meta-exchange.info/kyc/api';
+  window.open(endpoint+'/data/doc?userId='+'5d55413393a5416114a113df')
+}
 
   update() {
-    var file_select=document.getElementById('/Users/firegod/Downloads/doc.pdf')
-    file_select.addEventListener('change', handleFileSelect, false);
+    this.userId = '5d55413393a5416114a113df'
+    // dataURL = 'C:\Users\Lipa\Desktop\1'
+    requestObj={
+        userId:userIdStringVar,
+        dataURL:dataURL
+    }
+    httpRequest("PUT",'/data/doc',requestObj,(response)=>{
+        console.log(response)
+    })
   }
 }
