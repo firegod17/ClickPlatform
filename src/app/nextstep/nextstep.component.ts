@@ -102,7 +102,7 @@ import {
       });
     }
     ngOnInit() {
-      this.loadAllUsers();
+      // this.loadAllUsers();
       var name: string;
       httpGET("/fields/user",{username:'fire god', password: 'qwerty'},(response)=>{
         name = response.status;

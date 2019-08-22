@@ -1,5 +1,9 @@
 <div class="row">
   <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+    <div>
+      <label for="image_uploads">Choose images to upload (PNG, JPG, pdf)</label>
+      <input type="file" id="file-field" name="file-field" accept=".jpg, .jpeg, .png, .pdf" (change)="handleFileSelect($event)" >
+    </div>
     <button mat-raised-button
         matTooltip="Info about the action"
         matTooltipClass="example-tooltip-red"

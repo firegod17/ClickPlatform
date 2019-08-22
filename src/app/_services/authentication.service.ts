@@ -2,9 +2,31 @@
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 import { environment } from '@environments/environment';
 import { User } from '@app/_models';
+
+function httpGET(path,dataObj,callback,async=true){
+    function parseResponse(){
+        if (httpGet.readyState == 4 && httpGet.status == 200) {
+            var response = JSON.parse(httpGet.responseText);
+            var returnObj = callback(response)
+            if (returnObj!=null) return returnObj
+        }
+    }
+
+    var endpoint="http://alcyone.meta-exchange.info/kyc/api";
+    var httpGet = new XMLHttpRequest();
+    if (async){httpGet.onreadystatechange = parseResponse;}
+    var queryString = Object.keys(dataObj).map(function(key) {
+        return key + '=' + dataObj[key]
+    }).join('&');
+    httpGet.open('GET', endpoint+path+"?"+queryString, async);
+    httpGet.send();
+    if (!async){return parseResponse()}
+  }
+
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -21,15 +43,17 @@ export class AuthenticationService {
     }
 
     login(username: string, password: string) {
-        return this.http.post<any>(`${environment.apiUrl}/users/authenticate`, { username, password })
-            .pipe(map(user => {
+        var userObj = httpGET("/fields/user", {username: username,password: password },(userObj)=>{
+          userObj.token='a';
+          return of(userObj)
+        },false)
+        return userObj.pipe(map(user => {
                 // login successful if there's a jwt token in the response
                 if (user && user.token) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('currentUser', JSON.stringify(user));
                     this.currentUserSubject.next(user);
                 }
-
                 return user;
             }));
     }

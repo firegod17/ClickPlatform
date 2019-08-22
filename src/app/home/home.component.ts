@@ -46,7 +46,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.loadAllUsers();
+        // this.loadAllUsers();
         this.verificationForm = this.formBuilder.group({
             idUser: this.currentUser,
             iTIN: ['', Validators.required],

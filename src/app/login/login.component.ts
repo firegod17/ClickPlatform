@@ -6,22 +6,6 @@ import { first } from 'rxjs/operators';
 
 import { AlertService, AuthenticationService } from '@app/_services';
 
-function httpGET(path,dataObj,callback){
-    var endpoint = "http://f289c90e.ngrok.io"
-
-    var httpGet = new XMLHttpRequest();
-    httpGet.onreadystatechange = ()=>{
-      if (httpGet.readyState == 4 && httpGet.status == 200) {
-          var response = JSON.parse(httpGet.responseText);
-          callback(response)
-      }
-    };
-    var queryString = Object.keys(dataObj).map(function(key) {
-        return key + '=' + dataObj[key]
-    }).join('&');
-    httpGet.open('GET', endpoint+path+"?"+queryString, true);
-    httpGet.send();
-}
 
 
 @Component({templateUrl: 'login.component.html'})
@@ -94,7 +78,7 @@ export class LoginComponent implements OnInit {
             .pipe(first())
             .subscribe(
                 data => {
-                    this.router.navigate([this.returnUrl]);
+                    this.router.navigate(['/home']);
                 },
                 error => {
                     this.alertService.error(error);

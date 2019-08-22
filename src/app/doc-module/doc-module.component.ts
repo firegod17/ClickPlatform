@@ -89,6 +89,7 @@ function handleFileSelect(evt) {
 
 })
 export class DocModuleComponent implements OnInit {
+  input = document.querySelector('input');
 
   constructor() { }
 
@@ -98,7 +99,7 @@ export class DocModuleComponent implements OnInit {
 
   download() {
     var	endpoint = 'http://alcyone.meta-exchange.info/kyc/api';
-   httpGET('/data/doc',{userId:'5d55413393a5416114a113df',method:"download"});
+   // httpGET('/data/doc',{userId:'5d55413393a5416114a113df',method:"download"});
   window.open(endpoint+'/data/doc?userId='+'5d55413393a5416114a113df'+'&method=download')
 }
 open(){
@@ -106,13 +107,33 @@ open(){
   window.open(endpoint+'/data/doc?userId='+'5d55413393a5416114a113df')
 }
 
-  update() {
-    this.userId = '5d55413393a5416114a113df'
+handleFileSelect(event) {
+    var	endpoint = 'http://alcyone.meta-exchange.info/kyc/api'
+    var file = event.target.files[0];
+
+    openFile(file,(dataURL)=>{
+        var requestObj={
+            userId:'5d55413393a5416114a113df',
+            dataURL: dataURL
+
+        }
+        httpRequest("PUT",'/data/doc',requestObj,(response)=>{
+            console.log(response)
+        })
+    })
+}
+
+  update(event) {
+    let files = event.target.files;
+    let id = '5d55413393a5416114a113df';
+    console.log(files);
     // dataURL = 'C:\Users\Lipa\Desktop\1'
-    requestObj={
-        userId:userIdStringVar,
-        dataURL:dataURL
-    }
+    var requestObj={
+        userId: id,
+        dataURL: files
+      }
+
+
     httpRequest("PUT",'/data/doc',requestObj,(response)=>{
         console.log(response)
     })
