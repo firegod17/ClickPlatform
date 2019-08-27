@@ -42,6 +42,41 @@ export class AuthenticationService {
         return this.currentUserSubject.value;
     }
 
+    httpRequest(method,path,dataObj,callback){
+      var endpoint = "http://alcyone.meta-exchange.info/kyc/api"
+
+      var httpPost = new XMLHttpRequest();
+
+      httpPost.onload = function(err) {
+        if (httpPost.readyState == 4 && httpPost.status == 200){
+          var response=JSON.parse(httpPost.responseText)//here you will get uploaded image id
+          callback(response);
+        } else {
+          console.log(err);
+        }
+      }
+      httpPost.open(method, endpoint+path, true);
+      httpPost.setRequestHeader('Content-Type', 'application/json');//Specifies type of request
+      httpPost.send(JSON.stringify(dataObj))
+    }
+
+    httpGET(path,dataObj,callback){
+      var endpoint = "http://alcyone.meta-exchange.info/kyc/api"
+
+      var httpGet = new XMLHttpRequest();
+      httpGet.onreadystatechange = ()=>{
+        if (httpGet.readyState == 4 && httpGet.status == 200) {
+          var response = JSON.parse(httpGet.responseText);
+          callback(response)
+        }
+      };
+      var queryString = Object.keys(dataObj).map(function(key) {
+        return key + '=' + dataObj[key]
+      }).join('&');
+      httpGet.open('GET', endpoint+path+"?"+queryString, true);
+      httpGet.send();
+    }
+
     login(username: string, password: string) {
         var userObj = httpGET("/fields/user", {username: username,password: password },(userObj)=>{
           userObj.token='a';

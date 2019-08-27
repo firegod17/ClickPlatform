@@ -20,42 +20,6 @@ import {
   import { Router } from '@angular/router';
   import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
-
-  function httpRequest(method,path,dataObj,callback){
-    var endpoint = "http://alcyone.meta-exchange.info/kyc/api"
-
-    var httpPost = new XMLHttpRequest();
-
-    httpPost.onload = function(err) {
-      if (httpPost.readyState == 4 && httpPost.status == 200){
-        var response=JSON.parse(httpPost.responseText)//here you will get uploaded image id
-        callback(response);
-      } else {
-        console.log(err);
-      }
-    }
-    httpPost.open(method, endpoint+path, true);
-    httpPost.setRequestHeader('Content-Type', 'application/json');//Specifies type of request
-    httpPost.send(JSON.stringify(dataObj))
-  }
-
-  function httpGET(path,dataObj,callback){
-    var endpoint = "http://alcyone.meta-exchange.info/kyc/api"
-
-    var httpGet = new XMLHttpRequest();
-    httpGet.onreadystatechange = ()=>{
-      if (httpGet.readyState == 4 && httpGet.status == 200) {
-        var response = JSON.parse(httpGet.responseText);
-        callback(response)
-      }
-    };
-    var queryString = Object.keys(dataObj).map(function(key) {
-      return key + '=' + dataObj[key]
-    }).join('&');
-    httpGet.open('GET', endpoint+path+"?"+queryString, true);
-    httpGet.send();
-  }
-
   export interface Dessert {
     calories: number;
     carbs: number;
@@ -104,7 +68,7 @@ import {
     ngOnInit() {
       // this.loadAllUsers();
       var name: string;
-      httpGET("/fields/user",{username:'fire god', password: 'qwerty'},(response)=>{
+      this.authenticationService.httpGET("/fields/user",{username:'fire god', password: 'qwerty'},(response)=>{
         name = response.status;
         console.log(response);
       })
@@ -221,7 +185,7 @@ import {
           grantor: fieldsObj,
         }
       }
-      httpRequest("PUT",'/fields/trust',dataObj,(response)=>{
+      this.authenticationService.httpRequest("PUT",'/fields/trust',dataObj,(response)=>{
         console.log(response)
       })
     }
@@ -241,7 +205,7 @@ import {
           beneficiaries:[]
         }
       }
-      httpRequest("POST",'/fields/trust',dataObj,(response)=>{
+      this.authenticationService.httpRequest("POST",'/fields/trust',dataObj,(response)=>{
         console.log(response)
       })
 
@@ -250,7 +214,7 @@ import {
       var endpoint = 'http://alcyone.meta-exchange.info/kyc/api'
       var iddoc = "5d5580ae7c213e60b8eff18f"
       window.open(endpoint+'/data/doc?userId='+iddoc)
-      httpGET('/data/doc',{userId:'5d5580ae7c213e60b8eff18f',method:"download"},(response)=>{
+      this.authenticationService.httpGET('/data/doc',{userId:'5d5580ae7c213e60b8eff18f',method:"download"},(response)=>{
          console.log(response);
       })
 
@@ -275,7 +239,7 @@ import {
           administrators:fieldsObj,
         }
       }
-      httpRequest("PUT",'/fields/trust',dataObj,(response)=>{
+      this.authenticationService.httpRequest("PUT",'/fields/trust',dataObj,(response)=>{
         console.log(response)
       })
 
@@ -301,7 +265,7 @@ import {
           beneficiaries:fieldsObj,
         }
       }
-      httpRequest("PUT",'/fields/trust',dataObj,(response)=>{
+      this.authenticationService.httpRequest("PUT",'/fields/trust',dataObj,(response)=>{
         console.log(response)
       })
 
