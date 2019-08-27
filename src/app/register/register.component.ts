@@ -3,28 +3,8 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { User } from '@app/_models';
-
-
 import { AlertService, UserService, AuthenticationService } from '@app/_services';
 declare var $: any;
-
-function httpRequest(method,path,dataObj,callback){
-    var endpoint = "http://alcyone.meta-exchange.info/kyc/api/"
-
-    var httpPost = new XMLHttpRequest();
-
-    httpPost.onload = function(err) {
-        if (httpPost.readyState == 4 && httpPost.status == 200){
-            var response=JSON.parse(httpPost.responseText)//here you will get uploaded image id
-            callback(response);
-        } else {
-            console.log(err);
-        }
-    }
-    httpPost.open(method, endpoint+path, true);
-    httpPost.setRequestHeader('Content-Type', 'application/json');//Specifies type of request
-    httpPost.send(JSON.stringify(dataObj))
-}
 
 @Component({templateUrl: 'register.component.html'})
 
@@ -76,7 +56,7 @@ export class RegisterComponent implements OnInit {
         this.loading = true;
         var dataObj={fields:this.registerForm.value}
 
-        httpRequest('POST','fields/user',dataObj,(response)=>{
+        this.authenticationService.httpRequest('POST','/fields/user',dataObj,(response)=>{
           console.log(response)
               this.router.navigate(['/login']);
         })
