@@ -71,7 +71,7 @@ function handleFileSelect(evt) {
 
     openFile(file,(dataURL)=>{
         var requestObj={
-            userId:'5d55413393a5416114a113df',
+            userId:this.currentUser._id,
             dataURL: dataURL
 
         }
@@ -89,22 +89,52 @@ function handleFileSelect(evt) {
 
 })
 export class DocModuleComponent implements OnInit {
-  input = document.querySelector('input');
 
-  constructor() { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private authenticationService: AuthenticationService,
+    private userService: UserService,
+    public dialog: MatDialog,
+    private alertService: AlertService,
+  ) {
+    this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
+      this.currentUser = user;
+    });
+  }
 
   ngOnInit() {
+    var name: string;
+    this.authenticationService.httpGET("/fields/user",{username:this.currentUser.username, password: this.currentUser.password},(response)=>{
+      name = response.status;
+      console.log(name);
+      console.log(response);
+
+      if (name == "trustRejected"){
+        this.alertService.error("Trust Rejected. Please repeat!");
+      }else if (name == "ucc1"){
+        this.alertService.success("Trust Submitted");
+      }else if (name == "ucc"){
+        this.alertService.warning("Trust on check, wait!");
+      }else if (name == "docRejected"){
+        this.alertService.error("Incorrect Docs. Update Again!");
+      }else if (name == "docSubmitted"){
+        this.alertService.success("WOHO!");
+      }else{
+        this.alertService.info("Please fill out this form and wait for an answer!");
+      }
+    })
 
   }
 
   download() {
     var	endpoint = 'http://alcyone.meta-exchange.info/kyc/api';
    // httpGET('/data/doc',{userId:'5d55413393a5416114a113df',method:"download"});
-  window.open(endpoint+'/data/doc?userId='+'5d55413393a5416114a113df'+'&method=download')
+  window.open(endpoint+'/data/doc?userId='+this.currentUser._id+'&method=download')
 }
 open(){
   var	endpoint = 'http://alcyone.meta-exchange.info/kyc/api';
-  window.open(endpoint+'/data/doc?userId='+'5d55413393a5416114a113df')
+  window.open(endpoint+'/data/doc?userId='+this.currentUser._id)
 }
 
 handleFileSelect(event) {
@@ -113,7 +143,7 @@ handleFileSelect(event) {
 
     openFile(file,(dataURL)=>{
         var requestObj={
-            userId:'5d55413393a5416114a113df',
+            userId:this.currentUser._id,
             dataURL: dataURL
 
         }
@@ -125,7 +155,7 @@ handleFileSelect(event) {
 
   update(event) {
     let files = event.target.files;
-    let id = '5d55413393a5416114a113df';
+    let id = this.currentUser._id;
     console.log(files);
     // dataURL = 'C:\Users\Lipa\Desktop\1'
     var requestObj={

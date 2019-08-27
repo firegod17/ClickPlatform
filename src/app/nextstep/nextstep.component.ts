@@ -67,39 +67,32 @@ import {
     }
     ngOnInit() {
       // this.loadAllUsers();
+      console.log(this.currentUser._id)
       var name: string;
-      this.authenticationService.httpGET("/fields/user",{username:'fire god', password: 'qwerty'},(response)=>{
+      this.authenticationService.httpGET("/fields/user",{username:this.currentUser.username, password: this.currentUser.password},(response)=>{
         name = response.status;
+        console.log(name);
         console.log(response);
+
+        if (name == "trustRejected"){
+          this.alertService.error("Trust Rejected. Please repeat!");
+        }else if (name == "ucc1"){
+          this.alertService.success("Trust Submitted");
+        }else if (name == "ucc"){
+          this.alertService.warning("Trust on check, wait!");
+        }else{
+          this.alertService.info("Please fill out this form and wait for an answer!");
+        }
       })
 
-      if (name === "trustRejected"){
-        this.alertService.error("Trust Rejected");
-      }else if (name === "trustSubmitted"){
-        this.alertService.success("Trust Submitted");
-      }else{
-        this.alertService.warning("Please Trust Submitted");
-      }
 
-      switch (name){
-        case "trustRejected": {
-          this.alertService.error("Trust Rejected");
-          break;
-        }
-        case "trustSubmitted": {
-          this.alertService.error("Trust Submitted");
-          break;
-        }
-        default: {
-          this.alertService.info("Please fill out this form and wait for an answer!");
-          break;
-        }
-      }
+
+
 
 
       this.verificationForm = this.formBuilder.group({
         firstName: ['', Validators.required],
-        lasttName: ['', Validators.required],
+        lastName: ['', Validators.required],
         Address: ['', Validators.required],
         Address2: ['', Validators.required],
         city: ['', Validators.required],
@@ -109,7 +102,7 @@ import {
       });
       this.verificationFormAdmin = this.formBuilder.group({
         firstName: ["",Validators.required],
-        lasttttName: ["",Validators.required],
+        lastName: ["",Validators.required],
         Address1:["",Validators.required],
         Address2:["",Validators.required],
         state:["",Validators.required],
@@ -180,7 +173,7 @@ import {
       var fieldsObj=this.verificationForm.value;
       delete fieldsObj['__proto__'];
       var dataObj={
-        userId:'5d5580ae7c213e60b8eff18f',
+        userId:this.currentUser._id,
         fields:{
           grantor: fieldsObj,
         }
@@ -198,7 +191,7 @@ import {
         return;
       }
       var dataObj={
-        userId:'5d5580ae7c213e60b8eff18f',
+        userId:this.currentUser._id,
         fields:{
           trustName: this.verificationFormTrust.value.FullName,
           administrators:[],
@@ -212,7 +205,7 @@ import {
     }
     onSubmitDoc(){
       var endpoint = 'http://alcyone.meta-exchange.info/kyc/api'
-      var iddoc = "5d5580ae7c213e60b8eff18f"
+      var iddoc = this.currentUser._id
       window.open(endpoint+'/data/doc?userId='+iddoc)
       this.authenticationService.httpGET('/data/doc',{userId:'5d5580ae7c213e60b8eff18f',method:"download"},(response)=>{
          console.log(response);
@@ -233,7 +226,7 @@ import {
       var fieldsObj=this.verificationFormAdmin.value;
       delete fieldsObj['__proto__'];
       var dataObj={
-        userId:'5d5580ae7c213e60b8eff18f',
+        userId:this.currentUser._id,
         push:'',
         fields:{
           administrators:fieldsObj,
@@ -259,7 +252,7 @@ import {
       var fieldsObj=this.verificationFormBeneficiar.value;
       delete fieldsObj['__proto__'];
       var dataObj={
-        userId:'5d5580ae7c213e60b8eff18f',
+        userId:this.currentUser._id,
         push:'',
         fields:{
           beneficiaries:fieldsObj,
