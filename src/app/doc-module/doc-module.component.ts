@@ -113,7 +113,7 @@ export class DocModuleComponent implements OnInit {
       if (name == "trustRejected"){
         this.alertService.error("Trust Rejected. Please repeat!");
       }else if (name == "ucc1"){
-        this.alertService.success("Trust Submitted");
+        this.alertService.success("Trust Submitted. Download you docs.");
       }else if (name == "ucc"){
         this.alertService.warning("Trust on check, wait!");
       }else if (name == "docRejected"){
