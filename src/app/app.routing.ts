@@ -10,6 +10,8 @@ import { MyPasswordComponent } from './my-password';
 import { VerifyEmailComponent } from './verify-email';
 import { NextstepComponent } from './nextstep';
 import { FirststepComponent } from './firststep';
+ import { DocModuleComponent } from './doc-module';
+
 
 
 
@@ -24,6 +26,8 @@ const appRoutes: Routes = [
     { path: 'verify-email', component: VerifyEmailComponent },
     { path: 'nextstep', component: NextstepComponent },
     {path: 'firststep', component: FirststepComponent},
+      {path: 'doc-module', component: DocModuleComponent},
+
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
 ];
