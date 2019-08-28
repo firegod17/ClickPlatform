@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
+// import { JsonDecoder } from 'ts.data.json';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatExpansionModule} from '@angular/material/expansion';
@@ -20,11 +21,33 @@ import { AlertService, UserService, AuthenticationService } from '@app/_services
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 declare var $: any;
+
+
+function httpRequest(method,path,dataObj,callback){
+    var endpoint = "http://af356cc4.ngrok.io/"
+
+    var httpPost = new XMLHttpRequest();
+
+    httpPost.onload = function(err) {
+        if (httpPost.readyState == 4 && httpPost.status == 200){
+            var response=JSON.parse(httpPost.responseText)//here you will get uploaded image id
+            callback(response);
+        } else {
+            console.log(err);
+        }
+    }
+    httpPost.open(method, endpoint+path, true);
+    httpPost.setRequestHeader('Content-Type', 'application/json');//Specifies type of request
+    httpPost.send(JSON.stringify(dataObj))
+}
+
 @Component({
   selector: 'app-firststep',
   templateUrl: './firststep.component.html',
   styleUrls: ['./firststep.component.css']
 })
+
+
 
 
 export class FirststepComponent implements OnInit, OnDestroy {
@@ -34,6 +57,9 @@ export class FirststepComponent implements OnInit, OnDestroy {
     verificationForm: FormGroup;
     loading = false;
     submitted = false;
+
+
+
 
     constructor(
         private formBuilder: FormBuilder,
@@ -51,19 +77,17 @@ export class FirststepComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.loadAllUsers();
         this.verificationForm = this.formBuilder.group({
-            idUser: this.currentUser,
             iTIN: ['', Validators.required],
             fTIN: ['', Validators.required],
             sSN: ['', Validators.required],
             dataOfBirth: ['', Validators.required],
             country: ['', Validators.required],
             city: ['', Validators.required],
-            familyMonthlyIncome: ['$', Validators.required],
-            incomingFromInvesting: ['$', Validators.required],
-            otherIncome: ['$', Validators.required],
-            termLoan: ['$', Validators.required],
-            loanAmountRequired: ['$', Validators.required],
-
+            familyMonthlyIncome: ['', Validators.required],
+            incomingFromInvesting: ['', Validators.required],
+            otherIncome: ['', Validators.required],
+            termLoan: ['', Validators.required],
+            loanAmountRequired: ['', Validators.required],
         });
 
     }
@@ -112,17 +136,15 @@ export class FirststepComponent implements OnInit, OnDestroy {
       }
 
       this.loading = true;
-      this.userService.verify(this.verificationForm.value)
-          .pipe(first())
-          .subscribe(
-              data => {
-                  this.alertService.success('Registration successful', true);
-                  this.router.navigate(['/login']);
-              },
-              error => {
-                  this.alertService.error(error);
-                  this.loading = false;
-              });
+
+    var dataObj={userId:this.currentUser.id,fields:this.verificationForm.value}
+
+    httpRequest('POST','fields/verify',dataObj,(response)=>{
+      console.log(response)
+    })
+    this.alertService.success("You Verify press 'Next Step'")
+
+
   }
   openDialogAmount(): void {
   const dialogRef = this.dialog.open(IndoForAmountComponent, {

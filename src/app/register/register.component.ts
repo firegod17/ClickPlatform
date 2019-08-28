@@ -1,11 +1,11 @@
-﻿import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
-
-
+import { User } from '@app/_models';
 import { AlertService, UserService, AuthenticationService } from '@app/_services';
 declare var $: any;
+
 @Component({templateUrl: 'register.component.html'})
 
 export class RegisterComponent implements OnInit {
@@ -28,6 +28,7 @@ export class RegisterComponent implements OnInit {
     }
 
     ngOnInit() {
+
         this.registerForm = this.formBuilder.group({
             firstName: ['', Validators.required],
             lastName: ['', Validators.required],
@@ -53,19 +54,14 @@ export class RegisterComponent implements OnInit {
         }
 
         this.loading = true;
-        this.userService.register(this.registerForm.value)
-            .pipe(first())
-            .subscribe(
-                data => {
-                    this.alertService.success('Registration successful', true);
-                    this.router.navigate(['/login']);
-                },
-                error => {
-                    this.alertService.error(error);
-                    this.loading = false;
-                });
+        var dataObj={fields:this.registerForm.value}
+
+        this.authenticationService.httpRequest('POST','/fields/user',dataObj,(response)=>{
+          console.log(response)
+              this.router.navigate(['/login']);
+        })
+
+
+
     }
-
-
-
 }
