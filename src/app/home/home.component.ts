@@ -31,6 +31,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     verificationForm: FormGroup;
     loading = false;
     submitted = false;
+    status = false;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -46,7 +47,34 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.loadAllUsers();
+        // this.loadAllUsers();
+        var name: string;
+        this.authenticationService.httpGET("/fields/user",{username:this.currentUser.username, password: this.currentUser.password},(response)=>{
+          name = response.status;
+          console.log(name);
+          console.log(response);
+
+          if (name == "trustRejected"){
+            this.alertService.error("Trust Rejected. Please repeat!");
+          }else if (name == "ucc1"){
+            this.alertService.success("Trust Submitted. Download you docs.");
+            this.status = true;
+          }else if (name == "ucc"){
+            this.alertService.warning("Trust on check, wait!");
+            setTimeout(function(){
+              window.location.reload();
+            }, 30000);
+          }else if (name == "docRejected"){
+            this.alertService.error("Incorrect Docs. Update Again!");
+            this.status = true;
+          }else if (name == "docSubmitted"){
+            this.alertService.success("WOHO!");
+            this.status = true;
+          }else{
+            this.alertService.info("Please fill out this form and wait for an answer!");
+          }
+        })
+
         this.verificationForm = this.formBuilder.group({
             idUser: this.currentUser,
             iTIN: ['', Validators.required],
@@ -102,6 +130,22 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
   onSubmit() {
       this.submitted = true;
+
+      var name: string;
+      switch (name){
+        case "trustRejected": {
+          this.alertService.error("Trust Rejected");
+          break;
+        }
+        case "trustSubmitted": {
+          this.alertService.error("Trust Submitted");
+          break;
+        }
+        default: {
+          this.alertService.warning("Nothing doesn't submitted");
+        break;
+        }
+      }
 
       // stop here if form is invalid
       if (this.verificationForm.invalid) {

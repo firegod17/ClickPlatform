@@ -1,0 +1,50 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+    <div>
+      <label for="image_uploads">Choose images to upload (PNG, JPG, pdf)</label>
+      <input type="file" id="file-field" name="file-field" accept=".jpg, .jpeg, .png, .pdf" (change)="handleFileSelect($event)" >
+    </div>
+    <button mat-raised-button
+        matTooltip="Info about the action"
+        matTooltipClass="example-tooltip-red"
+        aria-label="Button that shows a red tooltip"
+        class="example-button"
+        (click)="update()">
+  Update
+</button>
+<button mat-raised-button
+    matTooltip="Info about the action"
+    matTooltipClass="example-tooltip-red"
+    aria-label="Button that shows a red tooltip"
+    class="example-button" id="ebone"
+    (click)="download()">
+Download
+</button>
+<button mat-raised-button
+    matTooltip="Info about the action"
+    matTooltipClass="example-tooltip-red"
+    aria-label="Button that shows a red tooltip"
+    class="example-button" id="ebone"
+    (click)="open()">
+Open
+</button>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>View Docs</mat-card-title>
+        <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
+      </mat-card-header>
+      <img mat-card-image src="#" alt="Docs">
+      <mat-card-content>
+
+      </mat-card-content>
+      <mat-card-actions>
+
+      </mat-card-actions>
+    </mat-card>
+
+  </div>
+
+</div>
