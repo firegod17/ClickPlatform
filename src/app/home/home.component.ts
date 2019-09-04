@@ -49,7 +49,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     ngOnInit() {
         // this.loadAllUsers();
         var name: string;
-        this.authenticationService.httpGET("/fields/user",{username:this.currentUser.username, password: this.currentUser.password},(response)=>{
+        this.authenticationService.httpGET("/fields/user",{email:this.currentUser.email, password: this.currentUser.password},(response)=>{
           name = response.status;
           console.log(name);
           console.log(response);

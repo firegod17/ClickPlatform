@@ -107,7 +107,7 @@ export class DocModuleComponent implements OnInit {
 
   ngOnInit() {
     var name: string;
-    this.authenticationService.httpGET("/fields/user",{username:this.currentUser.username, password: this.currentUser.password},(response)=>{
+    this.authenticationService.httpGET("/fields/user",{email:this.currentUser.email, password: this.currentUser.password},(response)=>{
       name = response.status;
       console.log(name);
       console.log(response);
@@ -135,7 +135,7 @@ export class DocModuleComponent implements OnInit {
   download() {
     var	endpoint = 'http://alcyone.meta-exchange.info/kyc/api';
    // httpGET('/data/doc',{userId:'5d55413393a5416114a113df',method:"download"});
-  window.open(endpoint+'/data/doc?userId='+this.currentUser._id+'&method=download')
+   window.open(endpoint+'/data/doc?userId='+this.currentUser._id+'&method=download')
 }
 open(){
   var	endpoint = 'http://alcyone.meta-exchange.info/kyc/api';

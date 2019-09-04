@@ -73,12 +73,12 @@ import {
       // this.loadAllUsers();
       console.log(this.currentUser._id)
       var name: string;
-      this.authenticationService.httpGET("/fields/user",{username:this.currentUser.username, password: this.currentUser.password},(response)=>{
+      this.authenticationService.httpGET("/fields/user",{email:this.currentUser.email, password: this.currentUser.password},(response)=>{
         name = response.status;
         console.log(name);
         console.log(response);
 
-        if (name == "trustRejected"){
+        if (name == "trustRejected"){z
           this.alertService.error("Trust Rejected. Please repeat!");
         }else if (name == "ucc1"){
           this.alertService.success("Trust Submitted. Download you docs.");
@@ -106,6 +106,8 @@ import {
         city: ['', Validators.required],
         state: ['', Validators.required],
         zip: ['', Validators.required],
+        email: ['', Validators.required],
+
 
       });
       this.verificationFormAdmin = this.formBuilder.group({
@@ -122,9 +124,11 @@ import {
 
       this.verificationFormTrust = this.formBuilder.group({
         FullName: ['', Validators.required],
+        email: ['', Validators.required],
       });
       this.verificationFormBeneficiar = this.formBuilder.group({
         FullName: ['', Validators.required],
+        email: ['', Validators.required],
       });
 
     }
@@ -229,7 +233,8 @@ import {
         }
       }
       this.authenticationService.httpRequest("PUT",'/fields/trust',dataObj,(response)=>{
-        console.log(response)
+        console.log(this.verificationForm.value)
+        this.alertService.success("Grantor was Submit!");
       })
     }
 
@@ -244,6 +249,7 @@ import {
         userId:this.currentUser._id,
         fields:{
           trustName: this.verificationFormTrust.value.FullName,
+          email: this.verificationFormTrust.value.email,
           administrators:[],
           beneficiaries:[]
         }
@@ -285,6 +291,8 @@ import {
       }
       this.authenticationService.httpRequest("PUT",'/fields/trust',dataObj,(response)=>{
         console.log(response)
+        this.alertService.success("Admin was Submit! Name: "+this.verificationFormAdmin.value.firstName);
+
       })
 
       this.tabs.splice(index, 1);
@@ -311,9 +319,10 @@ import {
       }
       this.authenticationService.httpRequest("PUT",'/fields/trust',dataObj,(response)=>{
         console.log(response)
+        this.alertService.success("Benefieciar was Submit! Full Name: "+this.verificationFormBeneficiar.value.FullName);
       })
 
-      this.tabs.splice(index, 1);
+      this.tabsBenef.splice(index, 1);
     }
 
 

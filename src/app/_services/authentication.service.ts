@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { AlertService} from '@app/_services';
 
 import { environment } from '@environments/environment';
 import { User } from '@app/_models';
@@ -12,6 +13,7 @@ function httpGET(path,dataObj,callback,async=true){
         if (httpGet.readyState == 4 && httpGet.status == 200) {
             var response = JSON.parse(httpGet.responseText);
             var returnObj = callback(response)
+
             if (returnObj!=null) return returnObj
         }
     }
@@ -33,7 +35,7 @@ export class AuthenticationService {
     private currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
 
-    constructor(private http: HttpClient) {
+    constructor(private alertService: AlertService, private http: HttpClient) {
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
     }
@@ -67,7 +69,7 @@ export class AuthenticationService {
       httpGet.onreadystatechange = ()=>{
         if (httpGet.readyState == 4 && httpGet.status == 200) {
           var response = JSON.parse(httpGet.responseText);
-          callback(response)
+          callback(response);
         }
       };
       var queryString = Object.keys(dataObj).map(function(key) {
@@ -77,18 +79,29 @@ export class AuthenticationService {
       httpGet.send();
     }
 
-    login(username: string, password: string) {
-        var userObj = httpGET("/fields/user", {username: username,password: password },(userObj)=>{
-          userObj.token='a';
-          return of(userObj)
+    login(email: string, password: string) {
+
+        var userObj = httpGET("/fields/user", {email: email,password: password },(userObj)=>{
+            var retur: any;
+            if (email == userObj.email){
+              userObj.token='a';
+              retur = userObj;
+            }else{
+              setTimeout(function(){
+                window.location.reload();
+              }, 3000);
+              retur = null;
+            };
+            return of(retur);
         },false)
         return userObj.pipe(map(user => {
                 // login successful if there's a jwt token in the response
-                if (user && user.token) {
+                // if (user && user.token) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
+                    // this.alertService.error("Incorrect");
                     localStorage.setItem('currentUser', JSON.stringify(user));
                     this.currentUserSubject.next(user);
-                }
+                // }
                 return user;
             }));
     }
