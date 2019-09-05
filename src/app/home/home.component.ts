@@ -71,7 +71,7 @@ export class HomeComponent implements OnInit, OnDestroy {
             this.alertService.success("WOHO!");
             this.status = true;
           }else{
-            this.alertService.info("Please fill out this form and wait for an answer!");
+            this.alertService.info("Welcome to META Trust Formation System. Create your META Trust here. Your META Trust can be used with META1. IO Website, META Exchange, Meta Investment Bank and META Wallet. A trust account enables adetional functionality in each system!");
           }
         })
 

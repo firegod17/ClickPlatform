@@ -34,6 +34,7 @@ import {
     selector: 'app-nextstep',
     templateUrl: './nextstep.component.html',
     styleUrls: ['./nextstep.component.css']
+
   })
   export class NextstepComponent implements OnInit, OnDestroy {
     currentUser: User;
@@ -93,7 +94,7 @@ import {
         }else if (name == "docSubmitted"){
           this.alertService.success("WOHO!");
         }else{
-          this.alertService.info("Please fill out this form and wait for an answer!");
+          this.alertService.info("Enter details of your Trust in these tabs!");
         }
       });
 
@@ -106,7 +107,6 @@ import {
         city: ['', Validators.required],
         state: ['', Validators.required],
         zip: ['', Validators.required],
-        email: ['', Validators.required],
 
 
       });
@@ -124,11 +124,9 @@ import {
 
       this.verificationFormTrust = this.formBuilder.group({
         FullName: ['', Validators.required],
-        email: ['', Validators.required],
       });
       this.verificationFormBeneficiar = this.formBuilder.group({
         FullName: ['', Validators.required],
-        email: ['', Validators.required],
       });
 
     }
@@ -215,7 +213,7 @@ import {
 
     }
 
-    onSubmit() {
+    onSubmit(tabName: string) {
       this.submitted = true;
 
       // stop here if form is invalid
@@ -235,10 +233,16 @@ import {
       this.authenticationService.httpRequest("PUT",'/fields/trust',dataObj,(response)=>{
         console.log(this.verificationForm.value)
         this.alertService.success("Grantor was Submit!");
+        for (let i =0; i< document.querySelectorAll('.mat-tab-label-content').length; i++) {
+          if ((<HTMLElement>document.querySelectorAll('.mat-tab-label-content')[i]).innerText == tabName)
+          {
+            (<HTMLElement>document.querySelectorAll('.mat-tab-label')[i]).click();
+          }
+        }
       })
     }
 
-    submittedTrust(){
+    submittedTrust(tabName: string){
       this.submitted = true;
 
       // stop here if form is invalid
@@ -257,8 +261,13 @@ import {
       this.authenticationService.httpRequest("POST",'/fields/trust',dataObj,(response)=>{
         console.log(response)
         this.alertService.success("Trust was Submit! Full name:"+this.verificationFormTrust.value.FullName);
+        for (let i =0; i< document.querySelectorAll('.mat-tab-label-content').length; i++) {
+          if ((<HTMLElement>document.querySelectorAll('.mat-tab-label-content')[i]).innerText == tabName)
+          {
+            (<HTMLElement>document.querySelectorAll('.mat-tab-label')[i]).click();
+          }
+        }
       })
-
     }
     onSubmitDoc(){
       var endpoint = 'http://alcyone.meta-exchange.info/kyc/api'

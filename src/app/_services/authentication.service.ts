@@ -87,6 +87,7 @@ export class AuthenticationService {
               userObj.token='a';
               retur = userObj;
             }else{
+              this.alertService.error("Incorrect");
               setTimeout(function(){
                 window.location.reload();
               }, 3000);
@@ -98,7 +99,7 @@ export class AuthenticationService {
                 // login successful if there's a jwt token in the response
                 // if (user && user.token) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
-                    // this.alertService.error("Incorrect");
+                    this.alertService.error("Incorrect");
                     localStorage.setItem('currentUser', JSON.stringify(user));
                     this.currentUserSubject.next(user);
                 // }

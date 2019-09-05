@@ -22,14 +22,11 @@
               <mat-form-field class="example-full-width">
                 <input matInput formControlName="FullName" placeholder="Full name">
               </mat-form-field>
-              <mat-form-field class="example-full-width">
-                <input matInput formControlName='email' placeholder="Email">
-              </mat-form-field>
+
 
 
               <mat-action-row>
-                <button mat-button  color="success" (click)="submittedTrust()" >Submit</button>
-                <button mat-button color="primary" (click)='moveToSelectedTab("Grantor")'>Next</button>
+                <button mat-button  color="primary" (click)='submittedTrust("Grantor")'>End</button>
               </mat-action-row>
             </mat-expansion-panel>
 
@@ -61,9 +58,7 @@
               <input matInput formControlName="lastName" placeholder="Last name">
               </mat-form-field>
 
-              <mat-form-field class="example-full-width">
-                <input matInput formControlName='email' placeholder="Email">
-              </mat-form-field>
+
 
               <mat-action-row>
                 <button mat-button color="primary" (click)="nextStep()">Continue</button>
@@ -105,9 +100,7 @@
                 </mat-form-field></td>
               </tr></table>
               <mat-action-row>
-                <button mat-button color="amber" (click)="onSubmit()">Submit</button>
-                <button mat-button color="warn" (click)='moveToSelectedTab("Trust")'>Previous</button>
-                <button mat-button color="primary" (click)='moveToSelectedTab("Administrators")'>Next</button>
+                <button mat-button color="primary" (click)='onSubmit("Administrators")'>End</button>
               </mat-action-row>
             </mat-expansion-panel>
 
@@ -174,10 +167,11 @@
                 </tr></table>
 
                 <button mat-raised-button
+                color="primary"
                 class="example-delete-tab-button"
                 [disabled]="tabs.length === 0"
                 (click)="addTabAdmin(true)">
-                New tab
+                New
               </button>
               <!-- <mat-checkbox #selectAfterAdding> Select tab after adding </mat-checkbox> -->
 
@@ -187,16 +181,15 @@
               class="example-delete-tab-button"
               [disabled]="tabs.length === 1"
               (click)="removeTab(index)">
-              Delete Tab
+              Delete
 
 
             </button>
-              <button mat-button color="Green" (click)="onSubmitAdmin(index)">Submit</button>
           </mat-tab>
         </mat-tab-group>
         <mat-action-row>
-          <button mat-button color="warn" (click)='moveToSelectedTab("Grantor")'>Previous</button>
-          <button mat-button color="primary" (click)='moveToSelectedTab("Benefieciaries")'>Next</button>
+          <button mat-button color="Green" (click)="onSubmitAdmin(index)">Next</button>
+          <button mat-button color="primary" (click)='moveToSelectedTab("Benefieciaries")'>End</button>
         </mat-action-row>
       </mat-expansion-panel>
     </mat-accordion>
@@ -224,31 +217,28 @@
             <input matInput formControlName="FullName" placeholder="Full name">
           </mat-form-field>
 
-          <mat-form-field class="example-full-width">
-            <input matInput formControlName='email' placeholder="Email">
-          </mat-form-field>
+
           <br>
           <button mat-raised-button
+          color="primary"
           class="example-delete-tab-button"
           [disabled]="tabsBenef.length === 0"
           (click)="addTabBeneficiar(true)">
-          New tab
+          New
         </button>
         <!-- <mat-checkbox #selectAfterAdding> Select tab after adding </mat-checkbox> -->
         <button mat-raised-button
         class="example-delete-tab-button"
         [disabled]="tabsBenef.length === 1"
         (click)="removeTabBenef(index)">
-        Delete Tab
+        Delete
       </button>
-      <button mat-button color="primary" (click)="onSubmitBeneficiar(index)">Submit</button>
     </mat-tab>
   </mat-tab-group>
   <mat-action-row>
-    <button mat-button color="warn" (click)="prevStep()">Previous</button>
-    <button mat-button color="primary" (click)="nextStep()">Finish</button>
-    <button mat-button color="primary" *ngIf="status" (click)="onSubmitDoc()">Docs</button>
-    <button mat-button color="primary" *ngIf="!status">Docs</button>
+    <button mat-button color="" (click)="onSubmitBeneficiar(index)">Next</button>
+    <button mat-button color="primary" routerLink="/home">Finish</button>
+
 
   </mat-action-row>
 </mat-expansion-panel>
