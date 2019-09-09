@@ -333,7 +333,4 @@ import {
 
       this.tabsBenef.splice(index, 1);
     }
-
-
-
   }

@@ -10,7 +10,9 @@ import { MyPasswordComponent } from './my-password';
 import { VerifyEmailComponent } from './verify-email';
 import { NextstepComponent } from './nextstep';
 import { FirststepComponent } from './firststep';
- import { DocModuleComponent } from './doc-module';
+import { DocModuleComponent } from './doc-module';
+import { UserComponent } from './user/user.component'
+
 
 
 
@@ -25,6 +27,7 @@ const appRoutes: Routes = [
     { path: 'my-password', component: MyPasswordComponent },
     { path: 'verify-email', component: VerifyEmailComponent },
     { path: 'nextstep', component: NextstepComponent },
+    { path: 'user', component: UserComponent },
     {path: 'firststep', component: FirststepComponent},
       {path: 'doc-module', component: DocModuleComponent},
 

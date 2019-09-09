@@ -14,7 +14,23 @@
   -webkit-user-drag: none;
   -webkit-tap-highlight-color: transparent;
 }
+#user{
+  border: 1px solid black;
+	width: 100px;
+	height: 50px;
+  margin-left: 48%;
+  margin-right: 50%;
+}
 
+
+#user:hover {
+	transform-origin:  center;
+	-o-transform: scale(1.5);
+	-ms-transform: scale(1.5);
+	-moz-transform: scale(1.5);
+	-webkit-transform: scale(1.5);
+	transform: scale(1.5);
+}
 /** Styles to make the demo look better. */
 .example-ripple-checkbox {
   margin: 6px 12px 6px 0;

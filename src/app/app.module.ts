@@ -41,6 +41,7 @@ import {MatBadgeModule} from '@angular/material/badge';
 import { FirststepComponent } from './firststep/firststep.component';
 import { DocModuleComponent } from './doc-module/doc-module.component';
 import {MatCardModule} from '@angular/material/card';
+import { UserComponent } from './user/user.component'
 
 
 
@@ -85,19 +86,16 @@ import {MatCardModule} from '@angular/material/card';
         IndoForAmountComponent,
         NextstepComponent,
         FirststepComponent,
-        DocModuleComponent
-        ],
+        DocModuleComponent,
+        UserComponent
+         ],
     entryComponents: [
         Info1Component,
         IndoForAmountComponent,
-
-
        ],
     providers: [
         MatDatepickerModule,
         MatExpansionModule,
-
-
 
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
